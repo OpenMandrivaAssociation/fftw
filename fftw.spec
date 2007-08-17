@@ -100,8 +100,8 @@ rm -rf %{buildroot}
 %{_bindir}/fftw*-wisdom
 %{_bindir}/fftw-wisdom-to-conf
 %{_includedir}/fftw3.f
-%{_mandir}/man1/fftw-wisdom-to-conf.1.bz2
-%{_mandir}/man1/fftw*-wisdom.1.bz2
+%{_mandir}/man1/fftw-wisdom-to-conf.*
+%{_mandir}/man1/fftw*-wisdom.*
 
 %files -n %{libname}
 %defattr (-,root,root)

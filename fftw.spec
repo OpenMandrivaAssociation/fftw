@@ -5,11 +5,12 @@
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.1.2
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	GPL
 Group:		System/Libraries
 URL:		http://www.fftw.org
 Source:		ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.bz2
+BuildRequires:	gcc-gfortran
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -55,14 +56,15 @@ transform library.
 %setup -q
 
 %build
+export F77="gfortran"
 mkdir build-std
 pushd build-std
-CONFIGURE_TOP=.. %configure2_5x --enable-shared --enable-threads --infodir=%{buildroot}%{_infodir}
+CONFIGURE_TOP=.. %configure2_5x --enable-shared --enable-threads --enable-fortran --infodir=%{buildroot}%{_infodir}
 %make
 popd
 mkdir build-float
 pushd build-float
-CONFIGURE_TOP=.. %configure2_5x --enable-float --enable-shared --enable-threads --infodir=%{buildroot}%{_infodir}
+CONFIGURE_TOP=.. %configure2_5x --enable-float --enable-shared --enable-threads --enable-fortran --infodir=%{buildroot}%{_infodir}
 %make
 popd
 
@@ -106,7 +108,7 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr (-,root,root)
 %doc AUTHORS CO* NEWS README TODO 
-%{_libdir}/libfftw*.so.*
+%{_libdir}/libfftw*.so.%{major}*
 
 %files -n %{develname}
 %defattr (-,root,root)

@@ -91,11 +91,11 @@ rm -rf %{buildroot}
 
 %post -n %{develname}
 %__install_info -e '* FFTW: (fftw).                     Fast Fourier Transform library.'\
-                -s Libraries %{_infodir}/fftw3.info.bz2 %{_infodir}/dir
+                -s Libraries %{_infodir}/fftw3.info.lzma %{_infodir}/dir
 
 %preun -n %{develname}
 %__install_info -e '* FFTW: (fftw).                     Fast Fourier Transform library.'\
-                -s Libraries %{_infodir}/fftw3.info.bz2 %{_infodir}/dir --remove
+                -s Libraries %{_infodir}/fftw3.info.lzma %{_infodir}/dir --remove
 
 %files -n %{name}-wisdom
 %defattr (-,root,root)

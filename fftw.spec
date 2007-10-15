@@ -5,7 +5,7 @@
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.1.2
-Release:	%mkrel 7
+Release:	%mkrel 8
 License:	GPL
 Group:		System/Libraries
 URL:		http://www.fftw.org
@@ -91,11 +91,11 @@ rm -rf %{buildroot}
 
 %post -n %{develname}
 %__install_info -e '* FFTW: (fftw%{major}).                     Fast Fourier Transform library.'\
-                -s Libraries %{_infodir}/fftw%{major}.info.lzma %{_infodir}/dir
+                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir
 
 %preun -n %{develname}
 %__install_info -e '* FFTW: (fftw%{major}).                     Fast Fourier Transform library.'\
-                -s Libraries %{_infodir}/fftw%{major}.info.lzma %{_infodir}/dir --remove
+                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir --remove
 
 %files -n %{name}-wisdom
 %defattr (-,root,root)

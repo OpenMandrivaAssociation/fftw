@@ -11,6 +11,7 @@ Group:		System/Libraries
 URL:		http://www.fftw.org
 Source:		ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.bz2
 BuildRequires:	gcc-gfortran
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 FFTW is a collection of fast C routines for computing the Discrete Fourier

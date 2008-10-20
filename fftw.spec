@@ -6,9 +6,9 @@
 
 Summary:	Fast fourier transform library
 Name:		fftw
-Version:	3.1.2
-Release:	%mkrel 11
-License:	GPL
+Version:	3.1.3
+Release:	%mkrel 1
+License:	GPLv2+
 Group:		System/Libraries
 URL:		http://www.fftw.org
 Source:		ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.bz2
@@ -33,7 +33,7 @@ sizes.
 Summary:	Fast fourier transform library
 Group:		System/Libraries
 Provides:	%{name}
-Obsoletes:	%{name}
+Obsoletes:	%{name} < 3.1.3
 
 %description -n %{libname}
 FFTW is a collection of fast C routines for computing the Discrete Fourier
@@ -46,7 +46,7 @@ Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}%{major}-devel = %{version}-%{release}
-Obsoletes:	%{libname}-devel
+Obsoletes:	%{libname}-devel < 3.1.3
 Provides:	%{name}-devel
 
 %description -n %{develname}
@@ -61,12 +61,29 @@ transform library.
 export F77="gfortran"
 mkdir build-std
 pushd build-std
-CONFIGURE_TOP=.. %configure2_5x --enable-shared --enable-threads --enable-fortran --infodir=%{buildroot}%{_infodir}
+CONFIGURE_TOP=.. %configure2_5x \
+		    --enable-shared \
+		    --enable-threads \
+		    --enable-fortran \
+		    %ifarch x86_66
+		    --enable-sse \
+		    %endif
+		    --infodir=%{_infodir}
+
 %make
 popd
+
 mkdir build-float
 pushd build-float
-CONFIGURE_TOP=.. %configure2_5x --enable-float --enable-shared --enable-threads --enable-fortran --infodir=%{buildroot}%{_infodir}
+CONFIGURE_TOP=.. %configure2_5x \
+		    --enable-float \
+		    --enable-shared \
+		    --enable-threads \
+		    --enable-fortran \
+		    %ifarch x86_64
+		    --enable-sse \
+		    %endif
+		    --infodir=%{_infodir}
 %make
 popd
 
@@ -77,10 +94,10 @@ make check -C build-float
 %install
 rm -fr %{buildroot}
 pushd build-std
-%makeinstall
+%makeinstall_std
 popd
 pushd build-float
-%makeinstall
+%makeinstall_std
 popd
 
 rm -fr %{buildroot}/%{_docdir}/Make*

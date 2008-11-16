@@ -6,7 +6,7 @@
 
 Summary:	Fast fourier transform library
 Name:		fftw
-Version:	3.1.3
+Version:	3.2
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Libraries
@@ -47,7 +47,7 @@ Requires:	%{libname} = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}%{major}-devel = %{version}-%{release}
 Obsoletes:	%{libname}-devel < 3.1.3
-Provides:	%{name}-devel
+Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n %{develname}
 This package contains the additional header files, documentation, and

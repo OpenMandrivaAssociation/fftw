@@ -7,7 +7,7 @@
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.2.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		System/Libraries
 URL:		http://www.fftw.org
@@ -87,9 +87,24 @@ CONFIGURE_TOP=.. %configure2_5x \
 %make
 popd
 
+mkdir build-long-double
+pushd build-long-double
+CONFIGURE_TOP=.. %configure2_5x \
+		    --enable-long-double \
+		    --enable-shared \
+		    --enable-threads \
+		    --enable-fortran \
+		    %ifarch x86_64
+		    --enable-sse \
+		    %endif
+		    --infodir=%{_infodir}
+%make
+popd
+
 %check
 make check -C build-std
 make check -C build-float
+make check -C build-long-double
 
 %install
 rm -fr %{buildroot}
@@ -97,6 +112,9 @@ pushd build-std
 %makeinstall_std
 popd
 pushd build-float
+%makeinstall_std
+popd
+pushd build-long-double
 %makeinstall_std
 popd
 

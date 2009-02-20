@@ -95,7 +95,7 @@ CONFIGURE_TOP=.. %configure2_5x \
 		    --enable-threads \
 		    --enable-fortran \
 		    %ifarch x86_64
-		    --enable-sse \
+		    --enable-sse2 \
 		    %endif
 		    --infodir=%{_infodir}
 %make

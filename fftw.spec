@@ -87,6 +87,7 @@ CONFIGURE_TOP=.. %configure2_5x \
 %make
 popd
 
+# SSE doesn't work with long-double:
 mkdir build-long-double
 pushd build-long-double
 CONFIGURE_TOP=.. %configure2_5x \
@@ -94,9 +95,6 @@ CONFIGURE_TOP=.. %configure2_5x \
 		    --enable-shared \
 		    --enable-threads \
 		    --enable-fortran \
-		    %ifarch x86_64
-		    --enable-sse2 \
-		    %endif
 		    --infodir=%{_infodir}
 %make
 popd

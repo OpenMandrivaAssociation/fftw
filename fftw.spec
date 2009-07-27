@@ -1,4 +1,4 @@
-%define _disable_ld_no_undefined 1
+##%define _disable_ld_no_undefined 1
 
 %define major 3
 %define libname %mklibname %{name} %{major}
@@ -6,12 +6,12 @@
 
 Summary:	Fast fourier transform library
 Name:		fftw
-Version:	3.2.1
-Release:	%mkrel 2
+Version:	3.2.2
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Libraries
 URL:		http://www.fftw.org
-Source:		ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.bz2
+Source:		ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 BuildRequires:	gcc-gfortran
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 

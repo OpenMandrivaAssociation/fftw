@@ -156,6 +156,7 @@ rm -rf %{buildroot}
 %files -n %{develname}
 %defattr (-,root,root)
 %{_includedir}/*fftw*.h
+%{_includedir}/fftw3.f03
 %{_infodir}/fftw%{major}.info*
 %doc doc/*
 %{_libdir}/pkgconfig/*.pc

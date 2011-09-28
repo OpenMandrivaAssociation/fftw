@@ -6,13 +6,14 @@
 
 Summary:	Fast fourier transform library
 Name:		fftw
-Version:	3.2.2
-Release:	%mkrel 4
+Version:	3.3
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Libraries
 URL:		http://www.fftw.org
 Source:		ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 BuildRequires:	gcc-gfortran
+BuildConflicts:	%{develname}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -65,8 +66,9 @@ CONFIGURE_TOP=.. %configure2_5x \
 		    --enable-shared \
 		    --enable-threads \
 		    --enable-fortran \
-		    %ifarch x86_66
+		    %ifarch x86_64
 		    --enable-sse \
+		    --enable-sse2 \
 		    %endif
 		    --infodir=%{_infodir}
 
@@ -82,6 +84,7 @@ CONFIGURE_TOP=.. %configure2_5x \
 		    --enable-fortran \
 		    %ifarch x86_64
 		    --enable-sse \
+		    --enable-sse2 \
 		    %endif
 		    --infodir=%{_infodir}
 %make
@@ -100,9 +103,10 @@ CONFIGURE_TOP=.. %configure2_5x \
 popd
 
 %check
-make check -C build-std
-make check -C build-float
-make check -C build-long-double
+# (tpg) export libraries
+for i in build-std build-float build-long-double; do
+export LD_LIBRARY_PATH=`pwd`/$i/.libs:`pwd`/$i/threads/.libs
+make check -C $i; done
 
 %install
 rm -fr %{buildroot}

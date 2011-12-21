@@ -122,11 +122,11 @@ rm -fr %{buildroot}/%{_docdir}/Make*
 
 %post -n %{develname}
 %__install_info -e '* FFTW: (fftw%{major}).                     Fast Fourier Transform library.'\
-                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir || :
+                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir 2>/dev/null || :
 
 %preun -n %{develname}
 %__install_info -e '* FFTW: (fftw%{major}).                     Fast Fourier Transform library.'\
-                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir --remove || :
+                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir --remove 2>/dev/null || :
 
 %files -n %{name}-wisdom
 %doc AUTHORS CO* NEWS README TODO 

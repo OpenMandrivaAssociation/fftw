@@ -1,5 +1,4 @@
 ##%define _disable_ld_no_undefined 1
-
 %define major 3
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
@@ -7,14 +6,13 @@
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.3
-Release:	%mkrel 1
+Release:	2
 License:	GPLv2+
 Group:		System/Libraries
 URL:		http://www.fftw.org
 Source:		ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 BuildRequires:	gcc-gfortran
 BuildConflicts:	%{develname}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 FFTW is a collection of fast C routines for computing the Discrete Fourier
@@ -33,8 +31,7 @@ sizes.
 %package -n %{libname}
 Summary:	Fast fourier transform library
 Group:		System/Libraries
-Provides:	%{name}
-Obsoletes:	%{name} < 3.1.3
+%rename	%{name}
 
 %description -n %{libname}
 FFTW is a collection of fast C routines for computing the Discrete Fourier
@@ -120,28 +117,19 @@ pushd build-long-double
 %makeinstall_std
 popd
 
+find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 rm -fr %{buildroot}/%{_docdir}/Make*
-
-%clean
-rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
 
 %post -n %{develname}
 %__install_info -e '* FFTW: (fftw%{major}).                     Fast Fourier Transform library.'\
-                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir
+                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir || :
 
 %preun -n %{develname}
 %__install_info -e '* FFTW: (fftw%{major}).                     Fast Fourier Transform library.'\
-                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir --remove
+                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir --remove || :
 
 %files -n %{name}-wisdom
-%defattr (-,root,root)
+%doc AUTHORS CO* NEWS README TODO 
 %{_bindir}/fftw*-wisdom
 %{_bindir}/fftw-wisdom-to-conf
 %{_includedir}/fftw3.f
@@ -149,17 +137,14 @@ rm -rf %{buildroot}
 %{_mandir}/man1/fftw*-wisdom.*
 
 %files -n %{libname}
-%defattr (-,root,root)
-%doc AUTHORS CO* NEWS README TODO 
 %{_libdir}/libfftw*.so.%{major}*
 
 %files -n %{develname}
-%defattr (-,root,root)
 %{_includedir}/*fftw*.h
 %{_includedir}/fftw3.f03
 %{_infodir}/fftw%{major}.info*
 %doc doc/*
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/libfftw*.a
-%{_libdir}/libfftw*.la
 %{_libdir}/libfftw*.so
+

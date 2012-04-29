@@ -141,7 +141,7 @@ rm -fr %{buildroot}/%{_docdir}/Make*
 
 %files -n %{develname}
 %{_includedir}/*fftw*.h
-%{_includedir}/fftw3.f03
+%{_includedir}/fftw3*.f03
 %{_infodir}/fftw%{major}.info*
 %doc doc/*
 %{_libdir}/pkgconfig/*.pc

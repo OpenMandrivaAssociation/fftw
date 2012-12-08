@@ -1,2 +1,3 @@
 sources:
-  "fftw-3.3.1.tar.gz:"	3fecc492f576503a6a509d2073bd82b3fe0aef13
+  "fftw-3.3.1.tar.gz": 3fecc492f576503a6a509d2073bd82b3fe0aef13
+  fftw-3.3.3.tar.gz: 11487180928d05746d431ebe7a176b52fe205cf9

@@ -5,12 +5,12 @@
 
 Summary:	Fast fourier transform library
 Name:		fftw
-Version:	3.3.1
+Version:	3.3.3
 Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 URL:		http://www.fftw.org
-Source:		ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 BuildRequires:	gcc-gfortran
 BuildConflicts:	%{develname}
 
@@ -99,14 +99,7 @@ CONFIGURE_TOP=.. %configure2_5x \
 %make
 popd
 
-%check
-# (tpg) export libraries
-for i in build-std build-float build-long-double; do
-export LD_LIBRARY_PATH=`pwd`/$i/.libs:`pwd`/$i/threads/.libs
-make check -C $i; done
-
 %install
-rm -fr %{buildroot}
 pushd build-std
 %makeinstall_std
 popd
@@ -117,16 +110,7 @@ pushd build-long-double
 %makeinstall_std
 popd
 
-find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 rm -fr %{buildroot}/%{_docdir}/Make*
-
-%post -n %{develname}
-%__install_info -e '* FFTW: (fftw%{major}).                     Fast Fourier Transform library.'\
-                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir 2>/dev/null || :
-
-%preun -n %{develname}
-%__install_info -e '* FFTW: (fftw%{major}).                     Fast Fourier Transform library.'\
-                -s Libraries %{_infodir}/fftw%{major}.info%{_extension} %{_infodir}/dir --remove 2>/dev/null || :
 
 %files -n %{name}-wisdom
 %doc AUTHORS CO* NEWS README TODO 
@@ -147,4 +131,3 @@ rm -fr %{buildroot}/%{_docdir}/Make*
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/libfftw*.a
 %{_libdir}/libfftw*.so
-

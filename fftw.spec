@@ -1,18 +1,23 @@
-##%define _disable_ld_no_undefined 1
-%define major 3
-%define libname %mklibname %{name} %{major}
-%define develname %mklibname %{name} -d
+%define api	3
+%define major	3
+%define libname 		%mklibname %{name} %{api} %{major}
+%define	libname_threads		%mklibname %{name}%{api}_threads %{major}
+%define	libnamef		%mklibname %{name}%{api}f %{major}
+%define	libnamef_threads	%mklibname %{name}%{api}f_threads %{major}
+%define	libnamel		%mklibname %{name}%{api}l %{major}
+%define	libnamel_threads	%mklibname %{name}%{api}l_threads %{major}
+%define devname			%mklibname %{name} -d
 
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.3.3
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Libraries
-URL:		http://www.fftw.org
+Url:		http://www.fftw.org
 Source0:	ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 BuildRequires:	gcc-gfortran
-BuildConflicts:	%{develname}
+BuildConflicts:	%{devname}
 
 %description
 FFTW is a collection of fast C routines for computing the Discrete Fourier
@@ -31,23 +36,67 @@ sizes.
 %package -n %{libname}
 Summary:	Fast fourier transform library
 Group:		System/Libraries
-%rename	%{name}
+Provides:	%{name} = %{version}-%{release}
+Obsoletes:	%{_lib}fftw3 < 3.3.3-2
 
 %description -n %{libname}
 FFTW is a collection of fast C routines for computing the Discrete Fourier
 Transform in one or more dimensions.  It includes complex, real, and
 parallel transforms, and can handle arbitrary array sizes efficiently.
 
-%package -n %{develname}
+%package -n %{libname_threads}
+Summary:	Fast fourier transform library
+Group:		System/Libraries
+Conflicts:	%{_lib}fftw3 < 3.3.3-2
+
+%description -n %{libname_threads}
+This package contains a shared library for %{name}.
+
+%package -n %{libnamef}
+Summary:	Fast fourier transform library
+Group:		System/Libraries
+Conflicts:	%{_lib}fftw3 < 3.3.3-2
+
+%description -n %{libnamef}
+This package contains a shared library for %{name}.
+
+%package -n %{libnamef_threads}
+Summary:	Fast fourier transform library
+Group:		System/Libraries
+Conflicts:	%{_lib}fftw3 < 3.3.3-2
+
+%description -n %{libnamef_threads}
+This package contains a shared library for %{name}.
+
+%package -n %{libnamel}
+Summary:	Fast fourier transform library
+Group:		System/Libraries
+Conflicts:	%{_lib}fftw3 < 3.3.3-2
+
+%description -n %{libnamel}
+This package contains a shared library for %{name}.
+
+%package -n %{libnamel_threads}
+Summary:	Fast fourier transform library
+Group:		System/Libraries
+Conflicts:	%{_lib}fftw3 < 3.3.3-2
+
+%description -n %{libnamel_threads}
+This package contains a shared library for %{name}.
+
+%package -n %{devname}
 Summary:	Headers, libraries, & docs for FFTW fast fourier transform library
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
-Provides:	lib%{name}-devel = %{version}-%{release}
-Provides:	%{name}%{major}-devel = %{version}-%{release}
-Obsoletes:	%{libname}-devel < 3.1.3
+Requires:	%{libname_threads} = %{version}-%{release}
+Requires:	%{libnamef} = %{version}-%{release}
+Requires:	%{libnamef_threads} = %{version}-%{release}
+Requires:	%{libnamel} = %{version}-%{release}
+Requires:	%{libnamel_threads} = %{version}-%{release}
+Provides:	%{name}%{api}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 
-%description -n %{develname}
+%description -n %{devname}
 This package contains the additional header files, documentation, and
 libraries you need to develop programs using the FFTW fast fourier
 transform library.
@@ -59,56 +108,56 @@ transform library.
 export F77="gfortran"
 mkdir build-std
 pushd build-std
-CONFIGURE_TOP=.. %configure2_5x \
-		    --enable-shared \
-		    --enable-threads \
-		    --enable-fortran \
-		    %ifarch x86_64
-		    --disable-sse \
-		    --enable-sse2 \
-		    %endif
-		    --infodir=%{_infodir}
+CONFIGURE_TOP=.. \
+%configure2_5x \
+	--disable-static \
+	--enable-shared \
+	--enable-threads \
+	--enable-fortran \
+%ifarch x86_64
+	--disable-sse \
+	--enable-sse2 \
+%endif
+	--infodir=%{_infodir}
 
 %make
 popd
 
 mkdir build-float
 pushd build-float
-CONFIGURE_TOP=.. %configure2_5x \
-		    --enable-float \
-		    --enable-shared \
-		    --enable-threads \
-		    --enable-fortran \
-		    %ifarch x86_64
-		    --enable-sse \
-		    --enable-sse2 \
-		    %endif
-		    --infodir=%{_infodir}
+CONFIGURE_TOP=.. \
+%configure2_5x \
+	--disable-static \
+	--enable-float \
+	--enable-shared \
+	--enable-threads \
+	--enable-fortran \
+%ifarch x86_64
+	--enable-sse \
+	--enable-sse2 \
+%endif
+	--infodir=%{_infodir}
 %make
 popd
 
 # SSE doesn't work with long-double:
 mkdir build-long-double
 pushd build-long-double
-CONFIGURE_TOP=.. %configure2_5x \
-		    --enable-long-double \
-		    --enable-shared \
-		    --enable-threads \
-		    --enable-fortran \
-		    --infodir=%{_infodir}
+CONFIGURE_TOP=.. \
+%configure2_5x \
+	--disable-static \
+	--enable-long-double \
+	--enable-shared \
+	--enable-threads \
+	--enable-fortran \
+	--infodir=%{_infodir}
 %make
 popd
 
 %install
-pushd build-std
-%makeinstall_std
-popd
-pushd build-float
-%makeinstall_std
-popd
-pushd build-long-double
-%makeinstall_std
-popd
+%makeinstall_std -C build-std
+%makeinstall_std -C build-float
+%makeinstall_std -C build-long-double
 
 rm -fr %{buildroot}/%{_docdir}/Make*
 
@@ -121,13 +170,28 @@ rm -fr %{buildroot}/%{_docdir}/Make*
 %{_mandir}/man1/fftw*-wisdom.*
 
 %files -n %{libname}
-%{_libdir}/libfftw*.so.%{major}*
+%{_libdir}/libfftw%{api}.so.%{major}*
 
-%files -n %{develname}
+%files -n %{libname_threads}
+%{_libdir}/libfftw%{api}_threads.so.%{major}*
+
+%files -n %{libnamef}
+%{_libdir}/libfftw%{api}f.so.%{major}*
+
+%files -n %{libnamef_threads}
+%{_libdir}/libfftw%{api}f_threads.so.%{major}*
+
+%files -n %{libnamel}
+%{_libdir}/libfftw%{api}l.so.%{major}*
+
+%files -n %{libnamel_threads}
+%{_libdir}/libfftw%{api}l_threads.so.%{major}*
+
+%files -n %{devname}
+%doc doc/*
 %{_includedir}/*fftw*.h
 %{_includedir}/fftw3*.f03
-%{_infodir}/fftw%{major}.info*
-%doc doc/*
+%{_infodir}/fftw%{api}.info*
 %{_libdir}/pkgconfig/*.pc
-%{_libdir}/libfftw*.a
 %{_libdir}/libfftw*.so
+

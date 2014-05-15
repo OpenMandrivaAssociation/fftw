@@ -1,17 +1,17 @@
-%define api	3
-%define major	3
-%define libname 		%mklibname %{name} %{api} %{major}
-%define	libname_threads		%mklibname %{name}%{api}_threads %{major}
-%define	libnamef		%mklibname %{name}%{api}f %{major}
-%define	libnamef_threads	%mklibname %{name}%{api}f_threads %{major}
-%define	libnamel		%mklibname %{name}%{api}l %{major}
-%define	libnamel_threads	%mklibname %{name}%{api}l_threads %{major}
-%define devname			%mklibname %{name} -d
+%define api 3
+%define major 3
+%define libname %mklibname %{name} %{api} %{major}
+%define	libname_threads %mklibname %{name}%{api}_threads %{major}
+%define	libnamef %mklibname %{name}%{api}f %{major}
+%define	libnamef_threads %mklibname %{name}%{api}f_threads %{major}
+%define	libnamel %mklibname %{name}%{api}l %{major}
+%define	libnamel_threads %mklibname %{name}%{api}l_threads %{major}
+%define devname %mklibname %{name} -d
 
 Summary:	Fast fourier transform library
 Name:		fftw
-Version:	3.3.3
-Release:	6
+Version:	3.3.4
+Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.fftw.org

@@ -109,7 +109,7 @@ export F77="gfortran"
 mkdir build-std
 pushd build-std
 CONFIGURE_TOP=.. \
-%configure2_5x \
+%configure \
 	--disable-static \
 	--enable-shared \
 	--enable-threads \
@@ -126,7 +126,7 @@ popd
 mkdir build-float
 pushd build-float
 CONFIGURE_TOP=.. \
-%configure2_5x \
+%configure \
 	--disable-static \
 	--enable-float \
 	--enable-shared \
@@ -144,7 +144,7 @@ popd
 mkdir build-long-double
 pushd build-long-double
 CONFIGURE_TOP=.. \
-%configure2_5x \
+%configure \
 	--disable-static \
 	--enable-long-double \
 	--enable-shared \

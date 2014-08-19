@@ -113,7 +113,6 @@ pushd build-std
 CONFIGURE_TOP=.. \
 %configure \
 	--disable-static \
-	--disable-quad-precision \
 	--enable-shared \
 	--enable-threads \
 	--enable-fortran \

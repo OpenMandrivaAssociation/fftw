@@ -1,0 +1,15 @@
+--- fftw-3.3.4/api/fftw3.h.omv~	2014-08-19 19:17:41.262201019 +0200
++++ fftw-3.3.4/api/fftw3.h	2014-08-19 19:18:11.417824021 +0200
+@@ -370,8 +370,12 @@ FFTW_DEFINE_API(FFTW_MANGLE_LONG_DOUBLE,
+ #    undef FFTW_DEFINE_COMPLEX
+ #    define FFTW_DEFINE_COMPLEX(R, C) typedef _Complex float __attribute__((mode(TC))) C
+ #  endif
++#ifdef __clang__
++FFTW_DEFINE_API(FFTW_MANGLE_QUAD, long double, fftwq_complex)
++#else
+ FFTW_DEFINE_API(FFTW_MANGLE_QUAD, __float128, fftwq_complex)
+ #endif
++#endif
+ 
+ #define FFTW_FORWARD (-1)
+ #define FFTW_BACKWARD (+1)

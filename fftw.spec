@@ -11,7 +11,7 @@
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.3.4
-Release:	7
+Release:	8
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.fftw.org

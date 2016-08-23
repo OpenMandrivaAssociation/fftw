@@ -10,8 +10,8 @@
 
 Summary:	Fast fourier transform library
 Name:		fftw
-Version:	3.3.4
-Release:	8
+Version:	3.3.5
+Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.fftw.org
@@ -119,6 +119,7 @@ CONFIGURE_TOP=.. \
 %ifarch x86_64
 	--disable-sse \
 	--enable-sse2 \
+	--enable-avx \
 %endif
 	--infodir=%{_infodir}
 
@@ -137,6 +138,7 @@ CONFIGURE_TOP=.. \
 %ifarch x86_64
 	--enable-sse \
 	--enable-sse2 \
+	--enable-avx \
 %endif
 	--infodir=%{_infodir}
 %make

@@ -11,7 +11,7 @@
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.3.5
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.fftw.org
@@ -115,6 +115,7 @@ CONFIGURE_TOP=.. \
 	--disable-static \
 	--enable-shared \
 	--enable-threads \
+	--with-openmp \
 	--enable-fortran \
 %ifarch x86_64
 	--disable-sse \

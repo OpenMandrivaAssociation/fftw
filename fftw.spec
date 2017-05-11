@@ -115,7 +115,7 @@ CONFIGURE_TOP=.. \
 	--disable-static \
 	--enable-shared \
 	--enable-threads \
-	--with-openmp \
+	--enable-openmp \
 	--enable-fortran \
 %ifarch x86_64
 	--disable-sse \

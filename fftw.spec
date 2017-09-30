@@ -152,10 +152,7 @@ CONFIGURE_TOP=.. \
 	--enable-sse2 \
 	--enable-avx \
 %endif
-	--infodir=%{_infodir} ||:
-
-cat config.log
-exit 1
+	--infodir=%{_infodir}
 
 %make
 popd

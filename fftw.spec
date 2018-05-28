@@ -13,12 +13,12 @@
 
 Summary:	Fast fourier transform library
 Name:		fftw
-Version:	3.3.6
+Version:	3.3.8
 Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.fftw.org
-Source0:	ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}-pl2.tar.gz
+Source0:	ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 Patch0:		fftw-3.3.4-clang.patch
 BuildRequires:	gcc-gfortran
 BuildConflicts:	%{devname}
@@ -133,8 +133,7 @@ libraries you need to develop programs using the FFTW fast fourier
 transform library.
 
 %prep
-%setup -qn %{name}-%{version}-pl2
-%apply_patches
+%autosetup -p1
 
 %build
 export F77="gfortran"
@@ -240,3 +239,4 @@ rm -fr %{buildroot}/%{_docdir}/Make*
 %{_infodir}/fftw%{api}.info*
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/libfftw*.so
+%{_libdir}/cmake/fftw3

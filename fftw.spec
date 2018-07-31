@@ -146,8 +146,8 @@ CONFIGURE_TOP=.. \
 	--enable-threads \
 	--enable-openmp \
 	--enable-fortran \
-%ifarch x86_64
-	--disable-sse \
+%ifarch x86_64 znver1
+	--enable-sse \
 	--enable-sse2 \
 	--enable-avx \
 %endif
@@ -166,7 +166,7 @@ CONFIGURE_TOP=.. \
 	--enable-threads \
 	--enable-openmp \
 	--enable-fortran \
-%ifarch x86_64
+%ifarch x86_64 znver1
 	--enable-sse \
 	--enable-sse2 \
 	--enable-avx \

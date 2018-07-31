@@ -21,6 +21,8 @@ Url:		http://www.fftw.org
 Source0:	ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 Patch0:		fftw-3.3.4-clang.patch
 BuildRequires:	gcc-gfortran
+BuildRequires:	atomic-devel
+BuildRequires:	quadmath-devel
 BuildConflicts:	%{devname}
 
 %description

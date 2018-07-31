@@ -147,7 +147,7 @@ CONFIGURE_TOP=.. \
 	--enable-openmp \
 	--enable-fortran \
 %ifarch x86_64 znver1
-	--enable-sse \
+	--disable-sse \
 	--enable-sse2 \
 	--enable-avx \
 %endif

@@ -14,7 +14,7 @@
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.3.8
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.fftw.org
@@ -153,7 +153,7 @@ CONFIGURE_TOP=.. \
 	--enable-sse2 \
 	--enable-avx \
 %endif
-	--infodir=%{_infodir} || cat config.log && exit 1
+	--infodir=%{_infodir}
 
 %make
 popd

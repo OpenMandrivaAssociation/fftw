@@ -170,7 +170,9 @@ CONFIGURE_TOP=.. \
 	--enable-float \
 	--enable-shared \
 	--enable-threads \
+%ifarch %{armx} %{ix86} znver1 x86_64
 	--enable-openmp \
+%endif
 	--enable-fortran \
 %ifarch x86_64 znver1
 	--enable-sse \
@@ -191,7 +193,9 @@ CONFIGURE_TOP=.. \
 	--enable-shared \
 	--enable-threads \
 	--enable-fortran \
+%ifarch %{armx} %{ix86} znver1 x86_64
 	--enable-openmp \
+%endif
 	--infodir=%{_infodir}
 %make
 popd

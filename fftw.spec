@@ -11,6 +11,9 @@
 %define	libnamel_omp %mklibname %{name}%{api}l_omp %{major}
 %define devname %mklibname %{name} -d
 
+# (tpg) optimize it a bit
+%global optflags %{optflags} -O3
+
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.3.8
@@ -159,7 +162,7 @@ CONFIGURE_TOP=.. \
 %endif
 	--infodir=%{_infodir}
 
-%make
+%make_build
 popd
 
 mkdir build-float
@@ -180,7 +183,7 @@ CONFIGURE_TOP=.. \
 	--enable-avx \
 %endif
 	--infodir=%{_infodir}
-%make
+%make_build
 popd
 
 # SSE doesn't work with long-double:
@@ -197,13 +200,13 @@ CONFIGURE_TOP=.. \
 	--enable-openmp \
 %endif
 	--infodir=%{_infodir}
-%make
+%make_build
 popd
 
 %install
-%makeinstall_std -C build-std
-%makeinstall_std -C build-float
-%makeinstall_std -C build-long-double
+%make_install -C build-std
+%make_install -C build-float
+%make_install -C build-long-double
 
 rm -fr %{buildroot}/%{_docdir}/Make*
 

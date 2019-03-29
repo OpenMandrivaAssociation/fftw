@@ -148,7 +148,9 @@ CONFIGURE_TOP=.. \
 	--disable-static \
 	--enable-shared \
 	--enable-threads \
+%ifarch %{armx} %{ix86} znver1 x86_64
 	--enable-openmp \
+%endif
 	--enable-fortran \
 %ifarch x86_64 znver1
 	--disable-sse \

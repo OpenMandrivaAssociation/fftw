@@ -22,7 +22,7 @@ Source0:	ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 Patch0:		fftw-3.3.4-clang.patch
 BuildRequires:	gcc-gfortran
 BuildRequires:	atomic-devel
-%ifnarch %{armx} aarch64
+%ifnarch %{armx} aarch64 riscv64
 BuildRequires:	quadmath-devel
 %endif
 BuildConflicts:	%{devname}

@@ -235,9 +235,6 @@ rm -fr %{buildroot}/%{_docdir}/Make*
 %files -n %{libname_omp}
 %{_libdir}/libfftw%{api}_omp.so.%{major}*
 
-%files -n %{libnamef}
-%{_libdir}/libfftw%{api}f.so.%{major}*
-
 %files -n %{libnamef_omp}
 %{_libdir}/libfftw%{api}f_omp.so.%{major}*
 
@@ -247,6 +244,10 @@ rm -fr %{buildroot}/%{_docdir}/Make*
 
 %files -n %{libnamef_threads}
 %{_libdir}/libfftw%{api}f_threads.so.%{major}*
+
+%files -n %{libnamef}
+%{_libdir}/libfftw%{api}f.so.%{major}*
+
 
 %files -n %{libnamel}
 %{_libdir}/libfftw%{api}l.so.%{major}*

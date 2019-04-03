@@ -13,6 +13,7 @@
 
 # (tpg) optimize it a bit
 %global optflags %{optflags} -O3
+%bcond_with	omp
 
 Summary:	Fast fourier transform library
 Name:		fftw
@@ -63,13 +64,13 @@ Conflicts:	%{_lib}fftw3 < 3.3.3-2
 %description -n %{libname_threads}
 This package contains a shared library for %{name}.
 
-%package -n %{libname_omp}
-Summary:	Fast OpenMP fourier transform library
+%package -n %{libnamef_threads}
+Summary:	Fast fourier transform library
 Group:		System/Libraries
 Conflicts:	%{_lib}fftw3 < 3.3.3-2
 
-%description -n %{libname_omp}
-This package contains a shared OpenMP library for %{name}.
+%description -n %{libnamef_threads}
+This package contains a shared library for %{name}.
 
 %package -n %{libnamef}
 Summary:	Fast fourier transform library
@@ -79,13 +80,14 @@ Conflicts:	%{_lib}fftw3 < 3.3.3-2
 %description -n %{libnamef}
 This package contains a shared library for %{name}.
 
-%package -n %{libnamef_threads}
-Summary:	Fast fourier transform library
+%if %{with omp}
+%package -n %{libname_omp}
+Summary:	Fast OpenMP fourier transform library
 Group:		System/Libraries
 Conflicts:	%{_lib}fftw3 < 3.3.3-2
 
-%description -n %{libnamef_threads}
-This package contains a shared library for %{name}.
+%description -n %{libname_omp}
+This package contains a shared OpenMP library for %{name}.
 
 %package -n %{libnamef_omp}
 Summary:	Fast OpenMP fourier transform library
@@ -94,6 +96,7 @@ Conflicts:	%{_lib}fftw3 < 3.3.3-2
 
 %description -n %{libnamef_omp}
 This package contains a shared OpenMP library for %{name}.
+%endif
 
 %package -n %{libnamel}
 Summary:	Fast fourier transform library
@@ -111,6 +114,7 @@ Conflicts:	%{_lib}fftw3 < 3.3.3-2
 %description -n %{libnamel_threads}
 This package contains a shared library for %{name}.
 
+%if %{with omp}
 %package -n %{libnamel_omp}
 Summary:	Fast OpenMP fourier transform library
 Group:		System/Libraries
@@ -118,19 +122,22 @@ Conflicts:	%{_lib}fftw3 < 3.3.3-2
 
 %description -n %{libnamel_omp}
 This package contains a shared OpenMP library for %{name}.
+%endif
 
 %package -n %{devname}
 Summary:	Headers, libraries, & docs for FFTW fast fourier transform library
 Group:		Development/C
 Requires:	%{libname} = %{EVRD}
 Requires:	%{libname_threads} = %{EVRD}
-Requires:	%{libname_omp} = %{EVRD}
 Requires:	%{libnamef} = %{EVRD}
 Requires:	%{libnamef_threads} = %{EVRD}
-Requires:	%{libnamef_omp} = %{EVRD}
 Requires:	%{libnamel} = %{EVRD}
 Requires:	%{libnamel_threads} = %{EVRD}
+%if %{with omp}
 Requires:	%{libnamel_omp} = %{EVRD}
+Requires:	%{libnamef_omp} = %{EVRD}
+Requires:	%{libname_omp} = %{EVRD}
+%endif
 Provides:	%{name}%{api}-devel = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 
@@ -151,7 +158,7 @@ CONFIGURE_TOP=.. \
 	--disable-static \
 	--enable-shared \
 	--enable-threads \
-%ifarch %{armx} %{ix86} znver1 x86_64
+%if %{with omp}
 	--enable-openmp \
 %endif
 	--enable-fortran \
@@ -173,7 +180,7 @@ CONFIGURE_TOP=.. \
 	--enable-float \
 	--enable-shared \
 	--enable-threads \
-%ifarch %{armx} %{ix86} znver1 x86_64
+%if %{with omp}
 	--enable-openmp \
 %endif
 	--enable-fortran \
@@ -196,7 +203,7 @@ CONFIGURE_TOP=.. \
 	--enable-shared \
 	--enable-threads \
 	--enable-fortran \
-%ifarch %{armx} %{ix86} znver1 x86_64
+%if %{with omp}
 	--enable-openmp \
 %endif
 	--infodir=%{_infodir}
@@ -224,17 +231,22 @@ rm -fr %{buildroot}/%{_docdir}/Make*
 %files -n %{libname_threads}
 %{_libdir}/libfftw%{api}_threads.so.%{major}*
 
+%if %{with omp}
 %files -n %{libname_omp}
 %{_libdir}/libfftw%{api}_omp.so.%{major}*
 
 %files -n %{libnamef}
 %{_libdir}/libfftw%{api}f.so.%{major}*
 
-%files -n %{libnamef_threads}
-%{_libdir}/libfftw%{api}f_threads.so.%{major}*
-
 %files -n %{libnamef_omp}
 %{_libdir}/libfftw%{api}f_omp.so.%{major}*
+
+%files -n %{libnamel_omp}
+%{_libdir}/libfftw%{api}l_omp.so.%{major}*
+%endif
+
+%files -n %{libnamef_threads}
+%{_libdir}/libfftw%{api}f_threads.so.%{major}*
 
 %files -n %{libnamel}
 %{_libdir}/libfftw%{api}l.so.%{major}*
@@ -242,8 +254,6 @@ rm -fr %{buildroot}/%{_docdir}/Make*
 %files -n %{libnamel_threads}
 %{_libdir}/libfftw%{api}l_threads.so.%{major}*
 
-%files -n %{libnamel_omp}
-%{_libdir}/libfftw%{api}l_omp.so.%{major}*
 
 %files -n %{devname}
 %doc doc/*

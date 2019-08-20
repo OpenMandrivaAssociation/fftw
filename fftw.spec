@@ -12,13 +12,17 @@
 %define devname %mklibname %{name} -d
 
 # (tpg) optimize it a bit
-%global optflags %{optflags} -O3
-%bcond_with	omp
+%global optflags %{optflags} -Ofast
+%ifnarch %{amrx} %{riscv64}
+%bcond_without omp
+%else
+%bcond_with omp
+%endif
 
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.3.8
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.fftw.org
@@ -151,8 +155,9 @@ transform library.
 
 %build
 export F77="gfortran"
+
 mkdir build-std
-pushd build-std
+cd build-std
 CONFIGURE_TOP=.. \
 %configure \
 	--disable-static \
@@ -162,7 +167,7 @@ CONFIGURE_TOP=.. \
 	--enable-openmp \
 %endif
 	--enable-fortran \
-%ifarch x86_64 znver1
+%ifarch %{x86_64}
 	--disable-sse \
 	--enable-sse2 \
 	--enable-avx \
@@ -170,10 +175,10 @@ CONFIGURE_TOP=.. \
 	--infodir=%{_infodir}
 
 %make_build
-popd
+cd -
 
 mkdir build-float
-pushd build-float
+cd build-float
 CONFIGURE_TOP=.. \
 %configure \
 	--disable-static \
@@ -184,18 +189,18 @@ CONFIGURE_TOP=.. \
 	--enable-openmp \
 %endif
 	--enable-fortran \
-%ifarch x86_64 znver1
+%ifarch %{x86_64}
 	--enable-sse \
 	--enable-sse2 \
 	--enable-avx \
 %endif
 	--infodir=%{_infodir}
 %make_build
-popd
+cd -
 
 # SSE doesn't work with long-double:
 mkdir build-long-double
-pushd build-long-double
+cd build-long-double
 CONFIGURE_TOP=.. \
 %configure \
 	--disable-static \
@@ -208,7 +213,7 @@ CONFIGURE_TOP=.. \
 %endif
 	--infodir=%{_infodir}
 %make_build
-popd
+cd -
 
 %install
 %make_install -C build-std

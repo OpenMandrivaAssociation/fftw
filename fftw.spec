@@ -231,9 +231,6 @@ CONFIGURE_TOP=.. \
 %ifarch znver1
 	--enable-amd-opt \
 %endif
-%ifarch %{arm} %{armx}
-	--enable-neon \
-%endif
 	--infodir=%{_infodir}
 %make_build
 cd -

@@ -22,12 +22,14 @@
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.3.8
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.fftw.org
 Source0:	ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 Patch0:		fftw-3.3.4-clang.patch
+# Patch from https://github.com/amd/amd-fftw
+Patch1:		fftw-3.3.8-amd-20200222.patch
 BuildRequires:	gcc-gfortran
 BuildRequires:	atomic-devel
 %ifnarch %{armx} aarch64 riscv64
@@ -168,9 +170,16 @@ CONFIGURE_TOP=.. \
 %endif
 	--enable-fortran \
 %ifarch %{x86_64}
-	--disable-sse \
 	--enable-sse2 \
 	--enable-avx \
+%endif
+%ifarch znver1
+	--enable-avx2 \
+	--enable-avx-128-fma \
+	--enable-amd-opt \
+%endif
+%ifarch %{arm} %{armx}
+	--enable-neon \
 %endif
 	--infodir=%{_infodir}
 
@@ -194,11 +203,19 @@ CONFIGURE_TOP=.. \
 	--enable-sse2 \
 	--enable-avx \
 %endif
+%ifarch znver1
+	--enable-avx2 \
+	--enable-avx-128-fma \
+	--enable-amd-opt \
+%endif
+%ifarch %{arm} %{armx}
+	--enable-neon \
+%endif
 	--infodir=%{_infodir}
 %make_build
 cd -
 
-# SSE doesn't work with long-double:
+# SSE and AVX don't work with long-double:
 mkdir build-long-double
 cd build-long-double
 CONFIGURE_TOP=.. \
@@ -211,6 +228,12 @@ CONFIGURE_TOP=.. \
 %if %{with omp}
 	--enable-openmp \
 %endif
+%ifarch znver1
+	--enable-amd-opt \
+%endif
+%ifarch %{arm} %{armx}
+	--enable-neon \
+%endif
 	--infodir=%{_infodir}
 %make_build
 cd -
@@ -221,6 +244,13 @@ cd -
 %make_install -C build-long-double
 
 rm -fr %{buildroot}/%{_docdir}/Make*
+
+%check
+for i in build-std build-float build-long-double; do
+	cd $i
+	make check
+	cd ..
+done
 
 %files -n %{name}-wisdom
 %doc AUTHORS CO* NEWS README TODO 

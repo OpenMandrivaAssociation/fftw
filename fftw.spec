@@ -51,6 +51,12 @@ BuildRequires:	atomic-devel
 BuildRequires:	quadmath-devel
 %endif
 BuildConflicts:	%{devname}
+%if %{with compat32}
+BuildRequires:	devel(libgfortran)
+BuildRequires:	devel(libquadmath)
+BuildRequires:	devel(libatomic)
+BuildRequires:	devel(libgomp)
+%endif
 
 %description
 FFTW is a collection of fast C routines for computing the Discrete Fourier

@@ -1,3 +1,8 @@
+# fftw is used by pulseaudio, pulseaudio is used by wine
+%ifarch %{x86_64}
+%bcond_without compat32
+%endif
+
 %define api 3
 %define major 3
 %define libname %mklibname %{name} %{api} %{major}
@@ -10,6 +15,16 @@
 %define	libnamel_threads %mklibname %{name}%{api}l_threads %{major}
 %define	libnamel_omp %mklibname %{name}%{api}l_omp %{major}
 %define devname %mklibname %{name} -d
+%define lib32name %mklib32name %{name} %{api} %{major}
+%define	lib32name_threads %mklib32name %{name}%{api}_threads %{major}
+%define	lib32name_omp %mklib32name %{name}%{api}_omp %{major}
+%define	lib32namef %mklib32name %{name}%{api}f %{major}
+%define	lib32namef_threads %mklib32name %{name}%{api}f_threads %{major}
+%define	lib32namef_omp %mklib32name %{name}%{api}f_omp %{major}
+%define	lib32namel %mklib32name %{name}%{api}l %{major}
+%define	lib32namel_threads %mklib32name %{name}%{api}l_threads %{major}
+%define	lib32namel_omp %mklib32name %{name}%{api}l_omp %{major}
+%define dev32name %mklib32name %{name} -d
 
 # (tpg) optimize it a bit
 %global optflags %{optflags} -Ofast
@@ -152,15 +167,183 @@ This package contains the additional header files, documentation, and
 libraries you need to develop programs using the FFTW fast fourier
 transform library.
 
+%if %{with compat32}
+%package -n %{lib32name}
+Summary:	Fast fourier transform library (32-bit)
+Group:		System/Libraries
+
+%description -n %{lib32name}
+FFTW is a collection of fast C routines for computing the Discrete Fourier
+Transform in one or more dimensions.  It includes complex, real, and
+parallel transforms, and can handle arbitrary array sizes efficiently.
+
+%package -n %{lib32name_threads}
+Summary:	Fast fourier transform library (32-bit)
+Group:		System/Libraries
+
+%description -n %{lib32name_threads}
+This package contains a shared library for %{name}.
+
+%package -n %{lib32namef_threads}
+Summary:	Fast fourier transform library (32-bit)
+Group:		System/Libraries
+
+%description -n %{lib32namef_threads}
+This package contains a shared library for %{name}.
+
+%package -n %{lib32namef}
+Summary:	Fast fourier transform library (32-bit)
+Group:		System/Libraries
+
+%description -n %{lib32namef}
+This package contains a shared library for %{name}.
+
+%if %{with omp}
+%package -n %{lib32name_omp}
+Summary:	Fast OpenMP fourier transform library (32-bit)
+Group:		System/Libraries
+
+%description -n %{lib32name_omp}
+This package contains a shared OpenMP library for %{name}.
+
+%package -n %{lib32namef_omp}
+Summary:	Fast OpenMP fourier transform library (32-bit)
+Group:		System/Libraries
+
+%description -n %{lib32namef_omp}
+This package contains a shared OpenMP library for %{name}.
+%endif
+
+%package -n %{lib32namel}
+Summary:	Fast fourier transform library (32-bit)
+Group:		System/Libraries
+
+%description -n %{lib32namel}
+This package contains a shared library for %{name}.
+
+%package -n %{lib32namel_threads}
+Summary:	Fast fourier transform library (32-bit)
+Group:		System/Libraries
+
+%description -n %{lib32namel_threads}
+This package contains a shared library for %{name}.
+
+%if %{with omp}
+%package -n %{lib32namel_omp}
+Summary:	Fast OpenMP fourier transform library (32-bit)
+Group:		System/Libraries
+
+%description -n %{lib32namel_omp}
+This package contains a shared OpenMP library for %{name}.
+%endif
+
+%package -n %{dev32name}
+Summary:	Headers, libraries, & docs for FFTW fast fourier transform library (32-bit)
+Group:		Development/C
+Requires:	%{devname} = %{EVRD}
+Requires:	%{lib32name} = %{EVRD}
+Requires:	%{lib32name_threads} = %{EVRD}
+Requires:	%{lib32namef} = %{EVRD}
+Requires:	%{lib32namef_threads} = %{EVRD}
+Requires:	%{lib32namel} = %{EVRD}
+Requires:	%{lib32namel_threads} = %{EVRD}
+%if %{with omp}
+Requires:	%{lib32namel_omp} = %{EVRD}
+Requires:	%{lib32namef_omp} = %{EVRD}
+Requires:	%{lib32name_omp} = %{EVRD}
+%endif
+
+%description -n %{dev32name}
+This package contains the additional header files, documentation, and
+libraries you need to develop programs using the FFTW fast fourier
+transform library.
+%endif
+
 %prep
 %autosetup -p1
 
 %build
 export F77="gfortran"
+export CONFIGURE_TOP="$(pwd)"
+
+%if %{with compat32}
+mkdir build32-std
+cd build32-std
+%configure32 \
+	--disable-static \
+	--enable-shared \
+	--enable-threads \
+%if %{with omp}
+	--enable-openmp \
+%endif
+	--enable-fortran \
+%ifarch %{x86_64}
+	--enable-sse2 \
+	--enable-avx \
+%endif
+%ifarch znver1
+	--enable-avx2 \
+	--enable-avx-128-fma \
+	--enable-amd-opt \
+%endif
+%ifarch %{arm} %{armx}
+	--enable-neon \
+%endif
+	--infodir=%{_infodir}
+
+%make_build
+cd -
+
+mkdir build32-float
+cd build32-float
+%configure32 \
+	--disable-static \
+	--enable-float \
+	--enable-shared \
+	--enable-threads \
+%if %{with omp}
+	--enable-openmp \
+%endif
+	--enable-fortran \
+%ifarch %{x86_64}
+	--enable-sse \
+	--enable-sse2 \
+	--enable-avx \
+%endif
+%ifarch znver1
+	--enable-avx2 \
+	--enable-avx-128-fma \
+	--enable-amd-opt \
+%endif
+%ifarch %{arm} %{armx}
+	--enable-neon \
+%endif
+	--infodir=%{_infodir}
+%make_build
+cd -
+
+# SSE and AVX don't work with long-double:
+mkdir build32-long-double
+cd build32-long-double
+%configure32 \
+	--disable-static \
+	--enable-long-double \
+	--enable-shared \
+	--enable-threads \
+	--enable-fortran \
+%if %{with omp}
+	--enable-openmp \
+%endif
+%ifarch znver1
+	--enable-amd-opt \
+%endif
+	--infodir=%{_infodir}
+%make_build
+cd -
+%endif
 
 mkdir build-std
 cd build-std
-CONFIGURE_TOP=.. \
 %configure \
 	--disable-static \
 	--enable-shared \
@@ -188,7 +371,6 @@ cd -
 
 mkdir build-float
 cd build-float
-CONFIGURE_TOP=.. \
 %configure \
 	--disable-static \
 	--enable-float \
@@ -218,7 +400,6 @@ cd -
 # SSE and AVX don't work with long-double:
 mkdir build-long-double
 cd build-long-double
-CONFIGURE_TOP=.. \
 %configure \
 	--disable-static \
 	--enable-long-double \
@@ -236,6 +417,11 @@ CONFIGURE_TOP=.. \
 cd -
 
 %install
+%if %{with compat32}
+%make_install -C build32-std
+%make_install -C build32-float
+%make_install -C build32-long-double
+%endif
 %make_install -C build-std
 %make_install -C build-float
 %make_install -C build-long-double
@@ -243,6 +429,13 @@ cd -
 rm -fr %{buildroot}/%{_docdir}/Make*
 
 %check
+%if %{with compat32}
+for i in build32-std build32-float build32-long-double; do
+	cd $i
+	make check
+	cd ..
+done
+%endif
 for i in build-std build-float build-long-double; do
 	cd $i
 	make check
@@ -296,3 +489,40 @@ done
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/libfftw*.so
 %{_libdir}/cmake/fftw3
+
+%if %{with compat32}
+%files -n %{lib32name}
+%{_prefix}/lib/libfftw%{api}.so.%{major}*
+
+%files -n %{lib32name_threads}
+%{_prefix}/lib/libfftw%{api}_threads.so.%{major}*
+
+%if %{with omp}
+%files -n %{lib32name_omp}
+%{_prefix}/lib/libfftw%{api}_omp.so.%{major}*
+
+%files -n %{lib32namef_omp}
+%{_prefix}/lib/libfftw%{api}f_omp.so.%{major}*
+
+%files -n %{lib32namel_omp}
+%{_prefix}/lib/libfftw%{api}l_omp.so.%{major}*
+%endif
+
+%files -n %{lib32namef_threads}
+%{_prefix}/lib/libfftw%{api}f_threads.so.%{major}*
+
+%files -n %{lib32namef}
+%{_prefix}/lib/libfftw%{api}f.so.%{major}*
+
+
+%files -n %{lib32namel}
+%{_prefix}/lib/libfftw%{api}l.so.%{major}*
+
+%files -n %{lib32namel_threads}
+%{_prefix}/lib/libfftw%{api}l_threads.so.%{major}*
+
+%files -n %{dev32name}
+%{_prefix}/lib/pkgconfig/*.pc
+%{_prefix}/lib/libfftw*.so
+%{_prefix}/lib/cmake/fftw3
+%endif

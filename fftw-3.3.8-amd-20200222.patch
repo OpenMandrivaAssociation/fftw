@@ -1,6 +1,6 @@
-diff -urN --exclude .git fftw-3.3.8/api/api.h amd-fftw-20200222/api/api.h
---- fftw-3.3.8/api/api.h	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/api/api.h	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/api/api.h.2~ fftw-3.3.9/api/api.h
+--- fftw-3.3.9/api/api.h.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/api/api.h	2021-05-10 22:57:51.171039968 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -9,7 +9,7 @@ diff -urN --exclude .git fftw-3.3.8/api/api.h amd-fftw-20200222/api/api.h
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -98,11 +99,17 @@
+@@ -98,11 +99,17 @@ printer *X(mkprinter_cnt)(size_t *cnt);
  printer *X(mkprinter_str)(char *s);
  
  FFTW_EXTERN planner *X(the_planner)(void);
@@ -27,9 +27,9 @@ diff -urN --exclude .git fftw-3.3.8/api/api.h amd-fftw-20200222/api/api.h
  
  rdft_kind *X(map_r2r_kind)(int rank, const X(r2r_kind) * kind);
  
-diff -urN --exclude .git fftw-3.3.8/api/apiplan.c amd-fftw-20200222/api/apiplan.c
---- fftw-3.3.8/api/apiplan.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/api/apiplan.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/api/apiplan.c.2~ fftw-3.3.9/api/apiplan.c
+--- fftw-3.3.9/api/apiplan.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/api/apiplan.c	2021-05-10 22:57:51.171039968 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -38,7 +38,7 @@ diff -urN --exclude .git fftw-3.3.8/api/apiplan.c amd-fftw-20200222/api/apiplan.
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -176,6 +177,101 @@
+@@ -176,6 +177,101 @@ apiplan *X(mkapiplan)(int sign, unsigned
       return p;
  }
  
@@ -140,9 +140,9 @@ diff -urN --exclude .git fftw-3.3.8/api/apiplan.c amd-fftw-20200222/api/apiplan.
  void X(destroy_plan)(X(plan) p)
  {
       if (p) {
-diff -urN --exclude .git fftw-3.3.8/api/plan-many-dft.c amd-fftw-20200222/api/plan-many-dft.c
---- fftw-3.3.8/api/plan-many-dft.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/api/plan-many-dft.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/api/plan-many-dft.c.2~ fftw-3.3.9/api/plan-many-dft.c
+--- fftw-3.3.9/api/plan-many-dft.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/api/plan-many-dft.c	2021-05-10 22:57:51.171039968 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -151,7 +151,7 @@ diff -urN --exclude .git fftw-3.3.8/api/plan-many-dft.c amd-fftw-20200222/api/pl
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -37,8 +38,12 @@
+@@ -37,8 +38,12 @@ X(plan) X(plan_many_dft)(int rank, const
       EXTRACT_REIM(sign, in, &ri, &ii);
       EXTRACT_REIM(sign, out, &ro, &io);
  
@@ -165,9 +165,9 @@ diff -urN --exclude .git fftw-3.3.8/api/plan-many-dft.c amd-fftw-20200222/api/pl
  		       X(mkproblem_dft_d)(
  			    X(mktensor_rowmajor)(rank, n, 
  						 N0(inembed), N0(onembed),
-diff -urN --exclude .git fftw-3.3.8/api/the-planner.c amd-fftw-20200222/api/the-planner.c
---- fftw-3.3.8/api/the-planner.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/api/the-planner.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/api/the-planner.c.2~ fftw-3.3.9/api/the-planner.c
+--- fftw-3.3.9/api/the-planner.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/api/the-planner.c	2021-05-10 22:57:51.171039968 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -176,7 +176,7 @@ diff -urN --exclude .git fftw-3.3.8/api/the-planner.c amd-fftw-20200222/api/the-
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -33,6 +34,20 @@
+@@ -33,6 +34,20 @@ planner *X(the_planner)(void)
       return plnr;
  }
  
@@ -197,9 +197,9 @@ diff -urN --exclude .git fftw-3.3.8/api/the-planner.c amd-fftw-20200222/api/the-
  void X(cleanup)(void)
  {
       if (plnr) {
-diff -urN --exclude .git fftw-3.3.8/config.h.in amd-fftw-20200222/config.h.in
---- fftw-3.3.8/config.h.in	2018-05-24 14:03:34.000000000 +0200
-+++ amd-fftw-20200222/config.h.in	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/config.h.in.2~ fftw-3.3.9/config.h.in
+--- fftw-3.3.9/config.h.in.2~	2020-12-10 13:03:38.000000000 +0100
++++ fftw-3.3.9/config.h.in	2021-05-10 22:57:51.171039968 +0200
 @@ -1,5 +1,11 @@
  /* config.h.in.  Generated from configure.ac by autoheader.  */
  
@@ -212,10 +212,10 @@ diff -urN --exclude .git fftw-3.3.8/config.h.in amd-fftw-20200222/config.h.in
  /* Define if the machine architecture "naturally" prefers fused multiply-add
     instructions */
  #undef ARCH_PREFERS_FMA
-diff -urN --exclude .git fftw-3.3.8/configure amd-fftw-20200222/configure
---- fftw-3.3.8/configure	2018-05-24 14:03:34.000000000 +0200
-+++ amd-fftw-20200222/configure	2019-12-12 09:40:51.000000000 +0100
-@@ -874,6 +874,8 @@
+diff -up fftw-3.3.9/configure.2~ fftw-3.3.9/configure
+--- fftw-3.3.9/configure.2~	2020-12-10 13:03:38.000000000 +0100
++++ fftw-3.3.9/configure	2021-05-10 22:59:13.086260615 +0200
+@@ -874,6 +874,8 @@ with_gnu_ld
  with_sysroot
  enable_libtool_lock
  enable_mpi
@@ -224,7 +224,7 @@ diff -urN --exclude .git fftw-3.3.8/configure amd-fftw-20200222/configure
  enable_fortran
  with_g77_wrappers
  enable_openmp
-@@ -1580,6 +1582,8 @@
+@@ -1580,6 +1582,8 @@ Optional Features:
                            optimize for fast installation [default=yes]
    --disable-libtool-lock  avoid locking (might break parallel builds)
    --enable-mpi            compile FFTW MPI library
@@ -233,7 +233,7 @@ diff -urN --exclude .git fftw-3.3.8/configure amd-fftw-20200222/configure
    --disable-fortran       don't include Fortran-callable wrappers
    --enable-openmp         use OpenMP directives for parallelism
    --enable-threads        compile FFTW SMP threads library
-@@ -17435,6 +17439,44 @@
+@@ -17428,6 +17432,44 @@ if test "$ac_test_CFLAGS" != "set"; then
  fi
  fi
  
@@ -276,12 +276,12 @@ diff -urN --exclude .git fftw-3.3.8/configure amd-fftw-20200222/configure
 +fi
 +
  if test "$USE_MAINTAINER_MODE" = yes; then
-         # Extract the first word of "indent", so it can be a program name with args.
+     # Extract the first word of "indent", so it can be a program name with args.
  set dummy indent; ac_word=$2
-diff -urN --exclude .git fftw-3.3.8/configure.ac amd-fftw-20200222/configure.ac
---- fftw-3.3.8/configure.ac	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/configure.ac	2019-12-12 09:40:51.000000000 +0100
-@@ -614,6 +614,30 @@
+diff -up fftw-3.3.9/configure.ac.2~ fftw-3.3.9/configure.ac
+--- fftw-3.3.9/configure.ac.2~	2021-05-10 22:57:51.175040028 +0200
++++ fftw-3.3.9/configure.ac	2021-05-10 22:59:48.098782278 +0200
+@@ -612,6 +612,30 @@ if test "$ac_test_CFLAGS" != "set"; then
  fi
  fi
  
@@ -311,10 +311,10 @@ diff -urN --exclude .git fftw-3.3.8/configure.ac amd-fftw-20200222/configure.ac
 +
  dnl check for a proper indent in maintainer mode
  if test "$USE_MAINTAINER_MODE" = yes; then
-         AC_PATH_PROG(INDENT, indent, indent)
-diff -urN --exclude .git fftw-3.3.8/dft/conf.c amd-fftw-20200222/dft/conf.c
---- fftw-3.3.8/dft/conf.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/dft/conf.c	2019-12-12 09:40:51.000000000 +0100
+     AC_PATH_PROG(INDENT, indent, indent)
+diff -up fftw-3.3.9/dft/conf.c.2~ fftw-3.3.9/dft/conf.c
+--- fftw-3.3.9/dft/conf.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/dft/conf.c	2021-05-10 22:57:51.175040028 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -323,7 +323,7 @@ diff -urN --exclude .git fftw-3.3.8/dft/conf.c amd-fftw-20200222/dft/conf.c
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -56,7 +57,11 @@
+@@ -56,7 +57,11 @@ void X(dft_conf_standard)(planner *p)
  #if HAVE_AVX2
       if (X(have_simd_avx2)())
           X(solvtab_exec)(X(solvtab_dft_avx2), p);
@@ -335,7 +335,7 @@ diff -urN --exclude .git fftw-3.3.8/dft/conf.c amd-fftw-20200222/dft/conf.c
           X(solvtab_exec)(X(solvtab_dft_avx2_128), p);
  #endif
  #if HAVE_AVX512
-@@ -85,4 +90,7 @@
+@@ -85,4 +90,7 @@ void X(dft_conf_standard)(planner *p)
  #if HAVE_GENERIC_SIMD256
       X(solvtab_exec)(X(solvtab_dft_generic_simd256), p);
  #endif
@@ -343,9 +343,9 @@ diff -urN --exclude .git fftw-3.3.8/dft/conf.c amd-fftw-20200222/dft/conf.c
 +     X(enquire_L1DcacheSize)();
 +#endif
  }
-diff -urN --exclude .git fftw-3.3.8/dft/simd/common/n2fv_8.c amd-fftw-20200222/dft/simd/common/n2fv_8.c
---- fftw-3.3.8/dft/simd/common/n2fv_8.c	2018-05-24 14:05:07.000000000 +0200
-+++ amd-fftw-20200222/dft/simd/common/n2fv_8.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/dft/simd/common/n2fv_8.c.2~ fftw-3.3.9/dft/simd/common/n2fv_8.c
+--- fftw-3.3.9/dft/simd/common/n2fv_8.c.2~	2020-12-10 13:04:53.000000000 +0100
++++ fftw-3.3.9/dft/simd/common/n2fv_8.c	2021-05-10 22:57:51.175040028 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -354,7 +354,7 @@ diff -urN --exclude .git fftw-3.3.8/dft/simd/common/n2fv_8.c amd-fftw-20200222/d
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -163,6 +164,80 @@
+@@ -162,6 +163,80 @@ static void n2fv_8(const R *ri, const R
  			 Tm = VADD(T4, T5);
  		    }
  	       }
@@ -435,7 +435,7 @@ diff -urN --exclude .git fftw-3.3.8/dft/simd/common/n2fv_8.c amd-fftw-20200222/d
  	       {
  		    V Tr, Tb, Tg, Tp, Tq, Tt;
  		    Tb = VADD(T3, Ta);
-@@ -200,6 +275,7 @@
+@@ -199,6 +274,7 @@ static void n2fv_8(const R *ri, const R
  			 STN2(&(xo[0]), Ty, Ts, ovs);
  		    }
  	       }
@@ -443,9 +443,9 @@ diff -urN --exclude .git fftw-3.3.8/dft/simd/common/n2fv_8.c amd-fftw-20200222/d
  	  }
       }
       VLEAVE();
-diff -urN --exclude .git fftw-3.3.8/dft/simd/common/q1fv_4.c amd-fftw-20200222/dft/simd/common/q1fv_4.c
---- fftw-3.3.8/dft/simd/common/q1fv_4.c	2018-05-24 14:06:13.000000000 +0200
-+++ amd-fftw-20200222/dft/simd/common/q1fv_4.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/dft/simd/common/q1fv_4.c.2~ fftw-3.3.9/dft/simd/common/q1fv_4.c
+--- fftw-3.3.9/dft/simd/common/q1fv_4.c.2~	2020-12-10 13:05:40.000000000 +0100
++++ fftw-3.3.9/dft/simd/common/q1fv_4.c	2021-05-10 22:57:51.175040028 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -454,7 +454,7 @@ diff -urN --exclude .git fftw-3.3.8/dft/simd/common/q1fv_4.c amd-fftw-20200222/d
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -154,17 +155,21 @@
+@@ -154,17 +155,21 @@ void XSIMD(codelet_q1fv_4) (planner *p)
  
  static void q1fv_4(R *ri, R *ii, const R *W, stride rs, stride vs, INT mb, INT me, INT ms)
  {
@@ -478,7 +478,7 @@ diff -urN --exclude .git fftw-3.3.8/dft/simd/common/q1fv_4.c amd-fftw-20200222/d
  		    T3 = VSUB(T1, T2);
  		    T9 = VADD(T1, T2);
  		    Ty = LD(&(x[WS(vs, 3)]), ms, &(x[WS(vs, 3)]));
-@@ -205,10 +210,56 @@
+@@ -205,10 +210,56 @@ static void q1fv_4(R *ri, R *ii, const R
  		    Th = VBYI(VSUB(Tf, Tg));
  		    Tl = VADD(Tf, Tg);
  	       }
@@ -539,7 +539,7 @@ diff -urN --exclude .git fftw-3.3.8/dft/simd/common/q1fv_4.c amd-fftw-20200222/d
  	       {
  		    V T7, Ti, Tt, TE;
  		    T7 = BYTWJ(&(W[0]), VSUB(T3, T6));
-@@ -242,11 +293,18 @@
+@@ -242,11 +293,18 @@ static void q1fv_4(R *ri, R *ii, const R
  		    TI = BYTWJ(&(W[TWVL * 2]), VSUB(TG, TH));
  		    ST(&(x[WS(vs, 2) + WS(rs, 3)]), TI, ms, &(x[WS(vs, 2) + WS(rs, 1)]));
  	       }
@@ -559,9 +559,9 @@ diff -urN --exclude .git fftw-3.3.8/dft/simd/common/q1fv_4.c amd-fftw-20200222/d
  static const tw_instr twinstr[] = {
       VTW(0, 1),
       VTW(0, 2),
-diff -urN --exclude .git fftw-3.3.8/dft/simd/common/q1fv_8.c amd-fftw-20200222/dft/simd/common/q1fv_8.c
---- fftw-3.3.8/dft/simd/common/q1fv_8.c	2018-05-24 14:06:15.000000000 +0200
-+++ amd-fftw-20200222/dft/simd/common/q1fv_8.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/dft/simd/common/q1fv_8.c.2~ fftw-3.3.9/dft/simd/common/q1fv_8.c
+--- fftw-3.3.9/dft/simd/common/q1fv_8.c.2~	2020-12-10 13:05:41.000000000 +0100
++++ fftw-3.3.9/dft/simd/common/q1fv_8.c	2021-05-10 22:57:51.176040043 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -570,7 +570,7 @@ diff -urN --exclude .git fftw-3.3.8/dft/simd/common/q1fv_8.c amd-fftw-20200222/d
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -38,476 +39,477 @@
+@@ -38,476 +39,477 @@ static void q1fv_8(R *ri, R *ii, const R
  {
       DVK(KP707106781, +0.707106781186547524400844362104849039284835938);
       {
@@ -1518,7 +1518,7 @@ diff -urN --exclude .git fftw-3.3.8/dft/simd/common/q1fv_8.c amd-fftw-20200222/d
       }
       VLEAVE();
  }
-@@ -539,483 +541,1337 @@
+@@ -539,483 +541,1337 @@ void XSIMD(codelet_q1fv_8) (planner *p)
   */
  #include "dft/simd/q1f.h"
  
@@ -3326,9 +3326,9 @@ diff -urN --exclude .git fftw-3.3.8/dft/simd/common/q1fv_8.c amd-fftw-20200222/d
  
  static const tw_instr twinstr[] = {
       VTW(0, 1),
-diff -urN --exclude .git fftw-3.3.8/kernel/cpy2d.c amd-fftw-20200222/kernel/cpy2d.c
---- fftw-3.3.8/kernel/cpy2d.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/kernel/cpy2d.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/kernel/cpy2d.c.2~ fftw-3.3.9/kernel/cpy2d.c
+--- fftw-3.3.9/kernel/cpy2d.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/kernel/cpy2d.c	2021-05-10 22:57:51.176040043 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -4243,7 +4243,7 @@ diff -urN --exclude .git fftw-3.3.8/kernel/cpy2d.c amd-fftw-20200222/kernel/cpy2
  void X(cpy2d)(R *I, R *O,
  	      INT n0, INT is0, INT os0,
  	      INT n1, INT is1, INT os1,
-@@ -103,6 +996,7 @@
+@@ -103,6 +996,7 @@ void X(cpy2d)(R *I, R *O,
  	      break;
       }
  }
@@ -4251,9 +4251,9 @@ diff -urN --exclude .git fftw-3.3.8/kernel/cpy2d.c amd-fftw-20200222/kernel/cpy2
  
  /* like cpy2d, but read input contiguously if possible */
  void X(cpy2d_ci)(R *I, R *O,
-diff -urN --exclude .git fftw-3.3.8/kernel/cpy2d-pair.c amd-fftw-20200222/kernel/cpy2d-pair.c
---- fftw-3.3.8/kernel/cpy2d-pair.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/kernel/cpy2d-pair.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/kernel/cpy2d-pair.c.2~ fftw-3.3.9/kernel/cpy2d-pair.c
+--- fftw-3.3.9/kernel/cpy2d-pair.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/kernel/cpy2d-pair.c	2021-05-10 22:57:51.176040043 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -4793,7 +4793,7 @@ diff -urN --exclude .git fftw-3.3.8/kernel/cpy2d-pair.c amd-fftw-20200222/kernel
  
  void X(zero1d_pair)(R *O0, R *O1, INT n0, INT os0)
  {
-@@ -47,22 +550,22 @@
+@@ -47,22 +550,22 @@ void X(zero1d_pair)(R *O0, R *O1, INT n0
  
  /* like cpy2d_pair, but read input contiguously if possible */
  void X(cpy2d_pair_ci)(R *I0, R *I1, R *O0, R *O1,
@@ -4826,9 +4826,9 @@ diff -urN --exclude .git fftw-3.3.8/kernel/cpy2d-pair.c amd-fftw-20200222/kernel
 -	  X(cpy2d_pair) (I0, I1, O0, O1, n1, is1, os1, n0, is0, os0);
 +      X(cpy2d_pair) (I0, I1, O0, O1, n1, is1, os1, n0, is0, os0);
  }
-diff -urN --exclude .git fftw-3.3.8/kernel/ifftw.h amd-fftw-20200222/kernel/ifftw.h
---- fftw-3.3.8/kernel/ifftw.h	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/kernel/ifftw.h	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/kernel/ifftw.h.2~ fftw-3.3.9/kernel/ifftw.h
+--- fftw-3.3.9/kernel/ifftw.h.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/kernel/ifftw.h	2021-05-10 22:57:51.176040043 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -4837,7 +4837,7 @@ diff -urN --exclude .git fftw-3.3.8/kernel/ifftw.h amd-fftw-20200222/kernel/ifft
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -77,6 +78,48 @@
+@@ -77,6 +78,48 @@ extern "C"
  # define X(name) CONCAT(fftw_, name)
  #endif
  
@@ -4886,7 +4886,7 @@ diff -urN --exclude .git fftw-3.3.8/kernel/ifftw.h amd-fftw-20200222/kernel/ifft
  /*
    integral type large enough to contain a stride (what ``int'' should
    have been in the first place.
-@@ -119,6 +162,7 @@
+@@ -119,6 +162,7 @@ extern int X(have_simd_avx512)(void);
  extern int X(have_simd_altivec)(void);
  extern int X(have_simd_vsx)(void);
  extern int X(have_simd_neon)(void);
@@ -4894,7 +4894,7 @@ diff -urN --exclude .git fftw-3.3.8/kernel/ifftw.h amd-fftw-20200222/kernel/ifft
  
  /* forward declarations */
  typedef struct problem_s problem;
-@@ -753,7 +797,9 @@
+@@ -753,7 +797,9 @@ struct planner_s {
       double timelimit; /* elapsed_since(start_time) at which to bail out */
       int timed_out; /* whether most recent search timed out */
       int need_timeout_check;
@@ -4905,7 +4905,7 @@ diff -urN --exclude .git fftw-3.3.8/kernel/ifftw.h amd-fftw-20200222/kernel/ifft
       /* various statistics */
       int nplan;    /* number of plans evaluated */
       double pcost, epcost; /* total pcost of measured/estimated plans */
-@@ -957,8 +1003,16 @@
+@@ -957,8 +1003,16 @@ void X(rader_tl_delete)(R *W, rader_tl *
  /*-----------------------------------------------------------------------*/
  /* copy/transposition routines */
  
@@ -4922,9 +4922,9 @@ diff -urN --exclude .git fftw-3.3.8/kernel/ifftw.h amd-fftw-20200222/kernel/ifft
  
  INT X(compute_tilesz)(INT vl, int how_many_tiles_in_cache);
  
-diff -urN --exclude .git fftw-3.3.8/kernel/tile2d.c amd-fftw-20200222/kernel/tile2d.c
---- fftw-3.3.8/kernel/tile2d.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/kernel/tile2d.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/kernel/tile2d.c.2~ fftw-3.3.9/kernel/tile2d.c
+--- fftw-3.3.9/kernel/tile2d.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/kernel/tile2d.c	2021-05-10 22:57:51.176040043 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -4933,7 +4933,7 @@ diff -urN --exclude .git fftw-3.3.8/kernel/tile2d.c amd-fftw-20200222/kernel/til
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -48,6 +49,11 @@
+@@ -48,6 +49,11 @@ void X(tile2d)(INT n0l, INT n0u, INT n1l
  
  INT X(compute_tilesz)(INT vl, int how_many_tiles_in_cache)
  {
@@ -4945,9 +4945,9 @@ diff -urN --exclude .git fftw-3.3.8/kernel/tile2d.c amd-fftw-20200222/kernel/til
 +		     (((INT)sizeof(R)) * vl * (INT)how_many_tiles_in_cache));
 +#endif
  }
-diff -urN --exclude .git fftw-3.3.8/kernel/transpose.c amd-fftw-20200222/kernel/transpose.c
---- fftw-3.3.8/kernel/transpose.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/kernel/transpose.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/kernel/transpose.c.2~ fftw-3.3.9/kernel/transpose.c
+--- fftw-3.3.9/kernel/transpose.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/kernel/transpose.c	2021-05-10 22:57:51.176040043 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -4956,7 +4956,7 @@ diff -urN --exclude .git fftw-3.3.8/kernel/transpose.c amd-fftw-20200222/kernel/
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -169,9 +170,83 @@
+@@ -169,9 +170,83 @@ void X(transpose_tiled)(R *I, INT n, INT
       transpose_rec(I, n, dotile, &k);
  }
  
@@ -5040,7 +5040,7 @@ diff -urN --exclude .git fftw-3.3.8/kernel/transpose.c amd-fftw-20200222/kernel/
       /* Assume that the the rows of I conflict into the same cache
          lines, and therefore we don't need to reserve cache space for
          the input.  If the rows don't conflict, there is no reason
-@@ -186,6 +261,20 @@
+@@ -186,6 +261,20 @@ void X(transpose_tiledbuf)(R *I, INT n,
       k.buf1 = buf1;
       A(k.tilesz * k.tilesz * vl * sizeof(R) <= sizeof(buf0));
       A(k.tilesz * k.tilesz * vl * sizeof(R) <= sizeof(buf1));
@@ -5061,9 +5061,9 @@ diff -urN --exclude .git fftw-3.3.8/kernel/transpose.c amd-fftw-20200222/kernel/
 +#endif
  }
  
-diff -urN --exclude .git fftw-3.3.8/libbench2/bench.h amd-fftw-20200222/libbench2/bench.h
---- fftw-3.3.8/libbench2/bench.h	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/libbench2/bench.h	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/libbench2/bench.h.2~ fftw-3.3.9/libbench2/bench.h
+--- fftw-3.3.9/libbench2/bench.h.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/libbench2/bench.h	2021-05-10 22:57:51.176040043 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2001 Matteo Frigo
@@ -5083,9 +5083,9 @@ diff -urN --exclude .git fftw-3.3.8/libbench2/bench.h amd-fftw-20200222/libbench
  extern void timer_init(double tmin, int repeat);
  
  /* report functions */
-diff -urN --exclude .git fftw-3.3.8/libbench2/bench-main.c amd-fftw-20200222/libbench2/bench-main.c
---- fftw-3.3.8/libbench2/bench-main.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/libbench2/bench-main.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/libbench2/bench-main.c.2~ fftw-3.3.9/libbench2/bench-main.c
+--- fftw-3.3.9/libbench2/bench-main.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/libbench2/bench-main.c	2021-05-10 22:57:51.176040043 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2001 Matteo Frigo
@@ -5094,7 +5094,7 @@ diff -urN --exclude .git fftw-3.3.8/libbench2/bench-main.c amd-fftw-20200222/lib
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -190,6 +191,10 @@
+@@ -190,6 +191,10 @@ int bench_main(int argc, char *argv[])
  	  speed(argv[my_optind++], 0);
       }
  
@@ -5105,9 +5105,9 @@ diff -urN --exclude .git fftw-3.3.8/libbench2/bench-main.c amd-fftw-20200222/lib
 +//#endif
       return 0;
  }
-diff -urN --exclude .git fftw-3.3.8/libbench2/bench-user.h amd-fftw-20200222/libbench2/bench-user.h
---- fftw-3.3.8/libbench2/bench-user.h	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/libbench2/bench-user.h	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/libbench2/bench-user.h.2~ fftw-3.3.9/libbench2/bench-user.h
+--- fftw-3.3.9/libbench2/bench-user.h.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/libbench2/bench-user.h	2021-05-10 22:57:51.177040058 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2001 Matteo Frigo
@@ -5116,7 +5116,7 @@ diff -urN --exclude .git fftw-3.3.8/libbench2/bench-user.h amd-fftw-20200222/lib
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -141,6 +142,13 @@
+@@ -141,6 +142,13 @@ extern int always_pad_real;
  #define LIBBENCH_TIMER 0
  #define USER_TIMER 1
  #define BENCH_NTIMERS 2
@@ -5130,7 +5130,7 @@ diff -urN --exclude .git fftw-3.3.8/libbench2/bench-user.h amd-fftw-20200222/lib
  extern void timer_start(int which_timer);
  extern double timer_stop(int which_timer);
  
-@@ -150,6 +158,9 @@
+@@ -150,6 +158,9 @@ extern void doit(int iter, bench_problem
  extern void done(bench_problem *p);
  extern void main_init(int *argc, char ***argv);
  extern void cleanup(void);
@@ -5140,9 +5140,9 @@ diff -urN --exclude .git fftw-3.3.8/libbench2/bench-user.h amd-fftw-20200222/lib
  extern void verify(const char *param, int rounds, double tol);
  extern void useropt(const char *arg);
  
-diff -urN --exclude .git fftw-3.3.8/libbench2/speed.c amd-fftw-20200222/libbench2/speed.c
---- fftw-3.3.8/libbench2/speed.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/libbench2/speed.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/libbench2/speed.c.2~ fftw-3.3.9/libbench2/speed.c
+--- fftw-3.3.9/libbench2/speed.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/libbench2/speed.c	2021-05-10 22:57:51.177040058 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2001 Matteo Frigo
@@ -5171,7 +5171,7 @@ diff -urN --exclude .git fftw-3.3.8/libbench2/speed.c amd-fftw-20200222/libbench
       double tmin, y;
  
       t = (double *) bench_malloc(time_repeat * sizeof(double));
-@@ -88,7 +93,9 @@
+@@ -88,7 +93,9 @@ void speed(const char *param, int setup_
       report(p, t, time_repeat);
  
       if (!no_speed_allocation)
@@ -5182,9 +5182,9 @@ diff -urN --exclude .git fftw-3.3.8/libbench2/speed.c amd-fftw-20200222/libbench
       bench_free(t);
       return;
  }
-diff -urN --exclude .git fftw-3.3.8/README_AMD.md amd-fftw-20200222/README_AMD.md
---- fftw-3.3.8/README_AMD.md	1970-01-01 01:00:00.000000000 +0100
-+++ amd-fftw-20200222/README_AMD.md	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/README_AMD.md.2~ fftw-3.3.9/README_AMD.md
+--- fftw-3.3.9/README_AMD.md.2~	2021-05-10 22:57:51.177040058 +0200
++++ fftw-3.3.9/README_AMD.md	2021-05-10 22:57:51.177040058 +0200
 @@ -0,0 +1,69 @@
 +AMD OPTIMIZED FFTW
 +------------------
@@ -5255,9 +5255,9 @@ diff -urN --exclude .git fftw-3.3.8/README_AMD.md amd-fftw-20200222/README_AMD.m
 +
 +FFTW was developed by Matteo Frigo and Steven G. Johnson. We thank Matteo Frigo
 +for his support provided to us.
-diff -urN --exclude .git fftw-3.3.8/README.md amd-fftw-20200222/README.md
---- fftw-3.3.8/README.md	1970-01-01 01:00:00.000000000 +0100
-+++ amd-fftw-20200222/README.md	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/README.md.2~ fftw-3.3.9/README.md
+--- fftw-3.3.9/README.md.2~	2021-05-10 22:57:51.177040058 +0200
++++ fftw-3.3.9/README.md	2021-05-10 22:57:51.177040058 +0200
 @@ -0,0 +1,69 @@
 +AMD OPTIMIZED FFTW
 +------------------
@@ -5328,9 +5328,9 @@ diff -urN --exclude .git fftw-3.3.8/README.md amd-fftw-20200222/README.md
 +
 +FFTW was developed by Matteo Frigo and Steven G. Johnson. We thank Matteo Frigo
 +for his support provided to us.
-diff -urN --exclude .git fftw-3.3.8/README_MIT amd-fftw-20200222/README_MIT
---- fftw-3.3.8/README_MIT	1970-01-01 01:00:00.000000000 +0100
-+++ amd-fftw-20200222/README_MIT	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/README_MIT.2~ fftw-3.3.9/README_MIT
+--- fftw-3.3.9/README_MIT.2~	2021-05-10 22:57:51.177040058 +0200
++++ fftw-3.3.9/README_MIT	2021-05-10 22:57:51.177040058 +0200
 @@ -0,0 +1,61 @@
 +FFTW is a free collection of fast C routines for computing the
 +Discrete Fourier Transform in one or more dimensions.  It includes
@@ -5393,9 +5393,9 @@ diff -urN --exclude .git fftw-3.3.8/README_MIT amd-fftw-20200222/README_MIT
 +page (http://www.fftw.org).  You can also sign up to the fftw-announce
 +Google group to receive (infrequent) updates and information about new
 +releases.
-diff -urN --exclude .git fftw-3.3.8/simd-support/avx.c amd-fftw-20200222/simd-support/avx.c
---- fftw-3.3.8/simd-support/avx.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/simd-support/avx.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/simd-support/avx.c.2~ fftw-3.3.9/simd-support/avx.c
+--- fftw-3.3.9/simd-support/avx.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/simd-support/avx.c	2021-05-10 22:57:51.177040058 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -5404,7 +5404,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/avx.c amd-fftw-20200222/simd-su
   *
   * This program is free software; you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
-@@ -52,3 +53,13 @@
+@@ -52,3 +53,13 @@ int X(have_simd_avx)(void)
  
  #endif
  
@@ -5418,9 +5418,9 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/avx.c amd-fftw-20200222/simd-su
 +	L1D_blk_size = L1D_blk_size&0xFF0; //block size is chosen that is multiple of 16/8, currently chosen that is multiple of 16.
 +}
 +#endif
-diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx2.h amd-fftw-20200222/simd-support/simd-avx2.h
---- fftw-3.3.8/simd-support/simd-avx2.h	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/simd-support/simd-avx2.h	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/simd-support/simd-avx2.h.2~ fftw-3.3.9/simd-support/simd-avx2.h
+--- fftw-3.3.9/simd-support/simd-avx2.h.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/simd-support/simd-avx2.h	2021-05-10 22:57:51.177040058 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -5448,7 +5448,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx2.h amd-fftw-20200222/s
  typedef DS(__m256d, __m256) V;
  #define VADD SUFF(_mm256_add_p)
  #define VSUB SUFF(_mm256_sub_p)
-@@ -59,6 +72,13 @@
+@@ -59,6 +72,13 @@ typedef DS(__m256d, __m256) V;
  #define VSHUF SUFF(_mm256_shuffle_p)
  #define VPERM1 SUFF(_mm256_permute_p)
  
@@ -5462,7 +5462,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx2.h amd-fftw-20200222/s
  #define SHUFVALD(fp0,fp1) \
     (((fp1) << 3) | ((fp0) << 2) | ((fp1) << 1) | ((fp0)))
  #define SHUFVALS(fp0,fp1,fp2,fp3) \
-@@ -71,6 +91,16 @@
+@@ -71,6 +91,16 @@ typedef DS(__m256d, __m256) V;
  #define DVK(var, val) V var = VLIT(val, val)
  #define LDK(x) x
  
@@ -5479,7 +5479,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx2.h amd-fftw-20200222/s
  static inline V LDA(const R *x, INT ivs, const R *aligned_like)
  {
       (void)aligned_like; /* UNUSED */
-@@ -85,6 +115,55 @@
+@@ -85,6 +115,55 @@ static inline void STA(R *x, V v, INT ov
       SUFF(_mm256_storeu_p)(x, v);
  }
  
@@ -5535,7 +5535,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx2.h amd-fftw-20200222/s
  #if FFTW_SINGLE
  
  #  ifdef _MSC_VER
-@@ -186,8 +265,14 @@
+@@ -186,8 +265,14 @@ static inline void STN2(R *x, V v0, V v1
       *(__m128 *)(x + 3 * ovs) = _mm256_castps256_ps128(yyy3);	\
       *(__m128 *)(x + 7 * ovs) = _mm256_extractf128_ps(yyy3, 1);	\
  }
@@ -5551,7 +5551,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx2.h amd-fftw-20200222/s
  static inline __m128d VMOVAPD_LD(const R *x)
  {
       /* gcc-4.6 miscompiles the combination _mm256_castpd128_pd256(VMOVAPD_LD(x))
-@@ -224,6 +309,20 @@
+@@ -224,6 +309,20 @@ static inline void ST(R *x, V v, INT ovs
  }
  
  
@@ -5572,7 +5572,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx2.h amd-fftw-20200222/s
  #define STM2 ST
  #define STN2(x, v0, v1, ovs) /* nop */
  #define STM4(x, v, ovs, aligned_like) /* no-op */
-@@ -245,55 +344,13 @@
+@@ -245,55 +344,13 @@ static inline void ST(R *x, V v, INT ovs
       STA(x + 2 * ovs, _mm256_permute2f128_pd(xxx0, xxx2, 0x31), 0, 0); \
       STA(x + 3 * ovs, _mm256_permute2f128_pd(xxx1, xxx3, 0x31), 0, 0); \
  }
@@ -5632,7 +5632,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx2.h amd-fftw-20200222/s
  
  static inline V VZMUL(V tx, V sr)
  {
-@@ -332,7 +389,6 @@
+@@ -332,7 +389,6 @@ static inline V VZMULI(V tx, V sr)
       * VMUL(FLIP_RI(sr), VDUPL(tx)));
      */
  }
@@ -5640,7 +5640,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx2.h amd-fftw-20200222/s
  static inline V VZMULIJ(V tx, V sr)
  {
       /* V tr = VDUPL(tx); */
-@@ -360,7 +416,6 @@
+@@ -360,7 +416,6 @@ static inline V BYTWJ1(const R *t, V sr)
  {
       return VZMULJ(LDA(t, 2, t), sr);
  }
@@ -5648,9 +5648,9 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx2.h amd-fftw-20200222/s
  /* twiddle storage #2: twice the space, faster (when in cache) */
  #ifdef FFTW_SINGLE
  # define VTW2(v,x)							\
-diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx.h amd-fftw-20200222/simd-support/simd-avx.h
---- fftw-3.3.8/simd-support/simd-avx.h	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/simd-support/simd-avx.h	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/simd-support/simd-avx.h.2~ fftw-3.3.9/simd-support/simd-avx.h
+--- fftw-3.3.9/simd-support/simd-avx.h.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/simd-support/simd-avx.h	2021-05-10 22:57:51.177040058 +0200
 @@ -1,6 +1,7 @@
  /*
   * Copyright (c) 2003, 2007-14 Matteo Frigo
@@ -5678,7 +5678,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx.h amd-fftw-20200222/si
  typedef DS(__m256d, __m256) V;
  #define VADD SUFF(_mm256_add_p)
  #define VSUB SUFF(_mm256_sub_p)
-@@ -54,6 +67,13 @@
+@@ -54,6 +67,13 @@ typedef DS(__m256d, __m256) V;
  #define VXOR SUFF(_mm256_xor_p)
  #define VSHUF SUFF(_mm256_shuffle_p)
  
@@ -5692,7 +5692,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx.h amd-fftw-20200222/si
  #define SHUFVALD(fp0,fp1) \
     (((fp1) << 3) | ((fp0) << 2) | ((fp1) << 1) | ((fp0)))
  #define SHUFVALS(fp0,fp1,fp2,fp3) \
-@@ -66,6 +86,27 @@
+@@ -66,6 +86,27 @@ typedef DS(__m256d, __m256) V;
  #define DVK(var, val) V var = VLIT(val, val)
  #define LDK(x) x
  
@@ -5720,7 +5720,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx.h amd-fftw-20200222/si
  static inline V LDA(const R *x, INT ivs, const R *aligned_like)
  {
       (void)aligned_like; /* UNUSED */
-@@ -80,6 +121,57 @@
+@@ -80,6 +121,57 @@ static inline void STA(R *x, V v, INT ov
       SUFF(_mm256_storeu_p)(x, v);
  }
  
@@ -5778,7 +5778,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx.h amd-fftw-20200222/si
  #if FFTW_SINGLE
  
  #  ifdef _MSC_VER
-@@ -182,8 +274,14 @@
+@@ -182,8 +274,14 @@ static inline void STN2(R *x, V v0, V v1
       *(__m128 *)(x + 3 * ovs) = _mm256_castps256_ps128(yyy3);	\
       *(__m128 *)(x + 7 * ovs) = _mm256_extractf128_ps(yyy3, 1);	\
  }
@@ -5794,7 +5794,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx.h amd-fftw-20200222/si
  static inline __m128d VMOVAPD_LD(const R *x)
  {
       /* gcc-4.6 miscompiles the combination _mm256_castpd128_pd256(VMOVAPD_LD(x))
-@@ -219,6 +317,19 @@
+@@ -219,6 +317,19 @@ static inline void ST(R *x, V v, INT ovs
       *(__m128d *)x = _mm256_castpd256_pd128(v);
  }
  
@@ -5814,7 +5814,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx.h amd-fftw-20200222/si
  
  #define STM2 ST
  #define STN2(x, v0, v1, ovs) /* nop */
-@@ -241,57 +352,13 @@
+@@ -241,57 +352,13 @@ static inline void ST(R *x, V v, INT ovs
       STA(x + 2 * ovs, _mm256_permute2f128_pd(xxx0, xxx2, 0x31), 0, 0); \
       STA(x + 3 * ovs, _mm256_permute2f128_pd(xxx1, xxx3, 0x31), 0, 0); \
  }
@@ -5876,7 +5876,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx.h amd-fftw-20200222/si
  
  static inline V VZMUL(V tx, V sr)
  {
-@@ -301,7 +368,6 @@
+@@ -301,7 +368,6 @@ static inline V VZMUL(V tx, V sr)
       sr = VBYI(sr);
       return VFMA(ti, sr, tr);
  }
@@ -5884,7 +5884,7 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx.h amd-fftw-20200222/si
  static inline V VZMULJ(V tx, V sr)
  {
       V tr = VDUPL(tx);
-@@ -346,7 +412,6 @@
+@@ -346,7 +412,6 @@ static inline V BYTWJ1(const R *t, V sr)
  {
       return VZMULJ(LDA(t, 2, t), sr);
  }
@@ -5892,9 +5892,9 @@ diff -urN --exclude .git fftw-3.3.8/simd-support/simd-avx.h amd-fftw-20200222/si
  /* twiddle storage #2: twice the space, faster (when in cache) */
  #ifdef FFTW_SINGLE
  # define VTW2(v,x)							\
-diff -urN --exclude .git fftw-3.3.8/tests/fftw-bench.c amd-fftw-20200222/tests/fftw-bench.c
---- fftw-3.3.8/tests/fftw-bench.c	2018-05-24 14:03:22.000000000 +0200
-+++ amd-fftw-20200222/tests/fftw-bench.c	2019-12-12 09:40:51.000000000 +0100
+diff -up fftw-3.3.9/tests/fftw-bench.c.2~ fftw-3.3.9/tests/fftw-bench.c
+--- fftw-3.3.9/tests/fftw-bench.c.2~	2020-12-10 13:02:44.000000000 +0100
++++ fftw-3.3.9/tests/fftw-bench.c	2021-05-10 22:57:51.177040058 +0200
 @@ -1,3 +1,8 @@
 +/*
 + * Copyright (C) 2019, Advanced Micro Devices, Inc. All Rights Reserved.
@@ -5904,7 +5904,7 @@ diff -urN --exclude .git fftw-3.3.8/tests/fftw-bench.c amd-fftw-20200222/tests/f
  /* See bench.c.  We keep a few common subroutines in this file so
     that they can be re-used in the MPI test program. */
  
-@@ -27,7 +32,12 @@
+@@ -27,7 +32,12 @@ int threads_ok = 1;
  
  FFTW(plan) the_plan = 0;
  
@@ -5917,7 +5917,7 @@ diff -urN --exclude .git fftw-3.3.8/tests/fftw-bench.c amd-fftw-20200222/tests/f
  unsigned the_flags = 0;
  int paranoid = 0;
  int usewisdom = 0;
-@@ -126,7 +136,7 @@
+@@ -142,7 +152,7 @@ void rdwisdom(void)
       timer_start(USER_TIMER);
       if ((f = fopen(wisdat, "r"))) {
  	  if (!import_wisdom(f))
@@ -5926,7 +5926,7 @@ diff -urN --exclude .git fftw-3.3.8/tests/fftw-bench.c amd-fftw-20200222/tests/f
  	  else
  	       success = 1;
  	  fclose(f);
-@@ -148,6 +158,12 @@
+@@ -164,6 +174,12 @@ void wrwisdom(void)
  {
       FILE *f;
       double tim;
@@ -5939,7 +5939,7 @@ diff -urN --exclude .git fftw-3.3.8/tests/fftw-bench.c amd-fftw-20200222/tests/f
       if (!havewisdom) return;
  
       timer_start(USER_TIMER);
-@@ -183,6 +199,11 @@
+@@ -199,6 +215,11 @@ int can_do(bench_problem *p)
  
       if (verbose > 2 && p->pstring)
  	  printf("Planning %s...\n", p->pstring);
@@ -5951,7 +5951,7 @@ diff -urN --exclude .git fftw-3.3.8/tests/fftw-bench.c amd-fftw-20200222/tests/f
       rdwisdom();
  
       timer_start(USER_TIMER);
-@@ -216,6 +237,11 @@
+@@ -232,6 +253,11 @@ void setup(bench_problem *p)
            FFTW(free(ptr));
       }
  
@@ -5963,16 +5963,7 @@ diff -urN --exclude .git fftw-3.3.8/tests/fftw-bench.c amd-fftw-20200222/tests/f
       rdwisdom();
       install_hook();
  
-@@ -250,7 +276,7 @@
- {
-      int i;
-      FFTW(plan) q = the_plan;
--
-+     
-      UNUSED(p);
-      for (i = 0; i < iter; ++i) 
- 	  FFTW(execute)(q);
-@@ -285,3 +311,26 @@
+@@ -301,3 +327,26 @@ void cleanup(void)
  
       final_cleanup();
  }

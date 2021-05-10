@@ -6,28 +6,29 @@
 %define api 3
 %define major 3
 %define libname %mklibname %{name} %{api} %{major}
-%define	libname_threads %mklibname %{name}%{api}_threads %{major}
-%define	libname_omp %mklibname %{name}%{api}_omp %{major}
-%define	libnamef %mklibname %{name}%{api}f %{major}
-%define	libnamef_threads %mklibname %{name}%{api}f_threads %{major}
-%define	libnamef_omp %mklibname %{name}%{api}f_omp %{major}
-%define	libnamel %mklibname %{name}%{api}l %{major}
-%define	libnamel_threads %mklibname %{name}%{api}l_threads %{major}
-%define	libnamel_omp %mklibname %{name}%{api}l_omp %{major}
+%define libname_threads %mklibname %{name}%{api}_threads %{major}
+%define libname_omp %mklibname %{name}%{api}_omp %{major}
+%define libnamef %mklibname %{name}%{api}f %{major}
+%define libnamef_threads %mklibname %{name}%{api}f_threads %{major}
+%define libnamef_omp %mklibname %{name}%{api}f_omp %{major}
+%define libnamel %mklibname %{name}%{api}l %{major}
+%define libnamel_threads %mklibname %{name}%{api}l_threads %{major}
+%define libnamel_omp %mklibname %{name}%{api}l_omp %{major}
 %define devname %mklibname %{name} -d
 %define lib32name %mklib32name %{name} %{api} %{major}
-%define	lib32name_threads %mklib32name %{name}%{api}_threads %{major}
-%define	lib32name_omp %mklib32name %{name}%{api}_omp %{major}
-%define	lib32namef %mklib32name %{name}%{api}f %{major}
-%define	lib32namef_threads %mklib32name %{name}%{api}f_threads %{major}
-%define	lib32namef_omp %mklib32name %{name}%{api}f_omp %{major}
-%define	lib32namel %mklib32name %{name}%{api}l %{major}
-%define	lib32namel_threads %mklib32name %{name}%{api}l_threads %{major}
-%define	lib32namel_omp %mklib32name %{name}%{api}l_omp %{major}
+%define lib32name_threads %mklib32name %{name}%{api}_threads %{major}
+%define lib32name_omp %mklib32name %{name}%{api}_omp %{major}
+%define lib32namef %mklib32name %{name}%{api}f %{major}
+%define lib32namef_threads %mklib32name %{name}%{api}f_threads %{major}
+%define lib32namef_omp %mklib32name %{name}%{api}f_omp %{major}
+%define lib32namel %mklib32name %{name}%{api}l %{major}
+%define lib32namel_threads %mklib32name %{name}%{api}l_threads %{major}
+%define lib32namel_omp %mklib32name %{name}%{api}l_omp %{major}
 %define dev32name %mklib32name %{name} -d
 
 # (tpg) optimize it a bit
-%global optflags %{optflags} -Ofast
+%global optflags %{optflags} -O3
+
 %ifnarch %{amrx} %{riscv64}
 %bcond_without omp
 %else
@@ -36,8 +37,8 @@
 
 Summary:	Fast fourier transform library
 Name:		fftw
-Version:	3.3.8
-Release:	5
+Version:	3.3.9
+Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.fftw.org
@@ -437,15 +438,15 @@ rm -fr %{buildroot}/%{_docdir}/Make*
 %check
 %if %{with compat32}
 for i in build32-std build32-float build32-long-double; do
-	cd $i
-	make check
-	cd ..
+    cd $i
+    make check
+    cd ..
 done
 %endif
 for i in build-std build-float build-long-double; do
-	cd $i
-	make check
-	cd ..
+    cd $i
+    make check
+    cd ..
 done
 
 %files -n %{name}-wisdom

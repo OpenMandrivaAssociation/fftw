@@ -57,6 +57,7 @@ BuildRequires:	devel(libgfortran)
 BuildRequires:	devel(libquadmath)
 BuildRequires:	devel(libatomic)
 BuildRequires:	devel(libgomp)
+BuildRequires:	libc6
 %endif
 
 %description

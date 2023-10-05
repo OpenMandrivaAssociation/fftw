@@ -38,7 +38,7 @@
 Summary:	Fast fourier transform library
 Name:		fftw
 Version:	3.3.10
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://www.fftw.org
@@ -435,6 +435,10 @@ cd -
 %make_install -C build-long-double
 
 rm -fr %{buildroot}/%{_docdir}/Make*
+
+# Compatibility with old versions -- some 3rd party cmake files (e.g. krita)
+# still insist the file must exist
+touch %{buildroot}%{_libdir}/cmake/fftw3/FFTW3LibraryDepends.cmake
 
 %check
 %if %{with compat32}

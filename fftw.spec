@@ -41,7 +41,7 @@ Version:	3.3.10
 Release:	4
 License:	GPLv2+
 Group:		System/Libraries
-Url:		http://www.fftw.org
+Url:		https://www.fftw.org
 Source0:	ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 Patch0:		fftw-3.3.4-clang.patch
 # Patch from https://github.com/amd/amd-fftw

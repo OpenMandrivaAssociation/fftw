@@ -46,6 +46,11 @@ Source0:	ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
 Patch0:		fftw-3.3.4-clang.patch
 # Patch from https://github.com/amd/amd-fftw
 Patch1:		fftw-3.3.8-amd-20200222.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	gcc-gfortran
 BuildRequires:	atomic-devel
 %ifnarch %{armx} aarch64 riscv64

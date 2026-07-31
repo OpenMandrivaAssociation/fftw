@@ -37,15 +37,15 @@
 
 Summary:	Fast fourier transform library
 Name:		fftw
-Version:	3.3.10
-Release:	4
+Version:	3.3.11
+Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Url:		https://www.fftw.org
 Source0:	ftp://ftp.fftw.org/pub/fftw/%{name}-%{version}.tar.gz
-Patch0:		fftw-3.3.4-clang.patch
+# dropped (no longer applies): Patch0:		fftw-3.3.4-clang.patch
 # Patch from https://github.com/amd/amd-fftw
-Patch1:		fftw-3.3.8-amd-20200222.patch
+# dropped (no longer applies): Patch1:		fftw-3.3.8-amd-20200222.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool-base
